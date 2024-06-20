@@ -17,6 +17,10 @@ dependencies:
 
   cupertino_icons: ^1.0.2
 
+  # utility packages
+  http: ^1.1.0
+  intl: ^0.18.1
+
 
   # state management
   get: ^4.6.5
