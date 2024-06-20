@@ -25,19 +25,19 @@ class OnBoardingScreen extends StatelessWidget {
             onPageChanged: controller.updatePageIndicator,
             children: const [
               OnBoardingPage(
-                title: "",
-                subtitle: "",
-                name: "",
+                title: "Expand your knowledge",
+                subtitle: "Unlock a world of learning. Explore our vast library of courses, lectures, and resources to expand your horizons.",
+                name: "assets/onboarding_1.png",
               ),
               OnBoardingPage(
-                title: "",
-                subtitle: "",
-                name: "",
+                title: "Learn online",
+                subtitle: "Learn at your own pace. Access engaging online classes, workshops, and interactive content from experts.",
+                name: "assets/onboarding_2.png",
               ),
               OnBoardingPage(
-                title: "",
-                subtitle: "",
-                name: "",
+                title: "Teach online ",
+                subtitle: "Share your expertise. Create dynamic courses and connect with a global community of lifelong learners.",
+                name: "assets/onboarding_3.png",
               ),
             ],
           ),
