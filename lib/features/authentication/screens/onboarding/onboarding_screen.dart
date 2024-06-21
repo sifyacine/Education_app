@@ -27,17 +27,17 @@ class OnBoardingScreen extends StatelessWidget {
               OnBoardingPage(
                 title: "Expand your knowledge",
                 subtitle: "Unlock a world of learning. Explore our vast library of courses, lectures, and resources to expand your horizons.",
-                name: "assets/onboarding_1.png",
+                name: "assets/onBoarding/onboarding_1.png",
               ),
               OnBoardingPage(
                 title: "Learn online",
                 subtitle: "Learn at your own pace. Access engaging online classes, workshops, and interactive content from experts.",
-                name: "assets/onboarding_2.png",
+                name: "assets/onBoarding/onboarding_2.png",
               ),
               OnBoardingPage(
                 title: "Teach online ",
                 subtitle: "Share your expertise. Create dynamic courses and connect with a global community of lifelong learners.",
-                name: "assets/onboarding_3.png",
+                name: "assets/onBoarding/onboarding_3.png",
               ),
             ],
           ),

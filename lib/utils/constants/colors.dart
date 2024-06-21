@@ -4,7 +4,7 @@ class TColors {
   TColors._();
   // APP BASIC COLORS
   static const Color primaryColor = Color(0xFF96E7AD);
-  static const Color secondaryColor = Color(0xFFFFE24B);
+  static const Color secondaryColor = Color(0xFF0AD1C8);
   static const Color accentColor = Color(0xFFB0C7FF);
 
   // GRADIENT COLORS
@@ -12,9 +12,9 @@ class TColors {
       begin: Alignment(0.0, 0.0),
       end: Alignment(0.707, -0.707),
       colors: [
-        Color(0xFFFF9A9E),
-        Color(0xFFFAD0C4),
-        Color(0xFFFF9A9E),
+        Color(0xFF0B6477),
+        Color(0xFF45DFB1),
+        Color(0xFF14919B),
       ]
     );
 
