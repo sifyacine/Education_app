@@ -19,7 +19,7 @@ class TLoginHeader extends StatelessWidget {
             "assets/logo/logo-no-background.png"
           ),
         ),
-        SizedBox(height: TSizes.spaceBtwItems,),
+        const SizedBox(height: TSizes.spaceBtwItems,),
         Text(
           "Welcome back",
           style: Theme.of(context).textTheme.headlineMedium,
