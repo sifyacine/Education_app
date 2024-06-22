@@ -1,3 +1,4 @@
+import 'package:education_app/features/authentication/screens/password_configuration/forget_password.dart';
 import 'package:education_app/features/authentication/screens/signup/signup.dart';
 import 'package:education_app/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
@@ -50,7 +51,9 @@ class TLoginForm extends StatelessWidget {
 
                 /// forget password
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Get.to(() => const ForgetPassword());
+                  },
                   child: const Text("Forget password?", style: TextStyle(color: TColors.primaryColor),),
                 )
               ],
