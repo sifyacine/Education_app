@@ -1,3 +1,4 @@
+import 'package:education_app/common/widgets/home/course.dart';
 import 'package:education_app/features/authentication/screens/home/home_screen.dart';
 import 'package:education_app/features/authentication/screens/welcome/welcome.dart';
 import 'package:education_app/utils/theme/theme.dart';

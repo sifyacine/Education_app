@@ -17,20 +17,21 @@ class HomeControllerImp extends HomeController {
 
   @override
   void onClose() async {
-    chewieController.dispose();
+    chewieController!.dispose();
     super.onClose();
   }
 
   @override
   initData() async {
     videoPlayerController = VideoPlayerController.asset("assets/logo/1.mp4");
+
     chewieController = ChewieController(
       videoPlayerController: videoPlayerController,
-      aspectRatio: 9 / 16,
-      autoPlay: false,
+      aspectRatio: 16 / 9,
+      autoPlay: true,
       looping: true,
       autoInitialize: true,
-      showControls: false,
+      showControls: true,
     );
   }
 }

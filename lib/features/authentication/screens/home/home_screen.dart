@@ -35,6 +35,7 @@ class HomeScreen extends StatelessWidget {
             ),
             SizedBox(
                 height: 200,
+                width: double.infinity,
                 child:
                     Video(chewieController: homeControllerImp.chewieController))
           ])),
