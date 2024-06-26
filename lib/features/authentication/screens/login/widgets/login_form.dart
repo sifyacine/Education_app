@@ -1,11 +1,11 @@
 import 'package:education_app/features/authentication/screens/password_configuration/forget_password.dart';
 import 'package:education_app/features/authentication/screens/signup/signup.dart';
-import 'package:education_app/navigation_menu.dart';
 import 'package:education_app/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import '../../../../../utils/constants/sizes.dart';
+import '../../welcome/welcome.dart';
 
 class TLoginForm extends StatelessWidget {
   const TLoginForm({
@@ -68,7 +68,7 @@ class TLoginForm extends StatelessWidget {
                   width: double.infinity,
                   child: ElevatedButton(
                     onPressed: () {
-                      Get.to(() => const NavigationMenu());
+                      Get.to(() => const Welcome());
                     },
                     child: const Text(
                       "Sign in",
