@@ -1,6 +1,8 @@
 import 'package:education_app/common/widgets/home/channel.dart';
 import 'package:education_app/common/widgets/home/course.dart';
 import 'package:education_app/common/widgets/home/custom_app_bar.dart';
+import 'package:education_app/common/widgets/home/post.dart';
+import 'package:education_app/common/widgets/home/suggested%20course.dart';
 import 'package:education_app/features/authentication/controllers/home/home_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -30,14 +32,18 @@ class HomeScreen extends StatelessWidget {
                 scrollDirection: Axis.horizontal,
                 shrinkWrap: true,
                 itemCount: 5,
-                itemBuilder: (context, i) => const Channel(),
+                itemBuilder: (context, i) => Channel(
+                  onTap: () {},
+                  channelName: "channel Name",
+                ),
               ),
             ),
-            SizedBox(
-                height: 200,
-                width: double.infinity,
-                child:
-                    Video(chewieController: homeControllerImp.chewieController))
+            ListView.builder(
+                itemCount: homeControllerImp.mixing.length,
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemBuilder: (context, i) =>
+                    homeControllerImp.mixing[i]["content"]),
           ])),
     );
   }
