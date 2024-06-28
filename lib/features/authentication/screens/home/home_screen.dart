@@ -7,6 +7,8 @@ import 'package:education_app/features/authentication/controllers/home/home_cont
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../settings/settings.dart';
+
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
@@ -22,7 +24,9 @@ class HomeScreen extends StatelessWidget {
             ),
             CustomAppBar(
               title: "courses , channels ",
-              onPressedProfil: () {},
+              onPressedProfil: () {
+                Get.to(() =>const SettingsPage());
+              },
               onPressedSearch: () {},
               onPressedNotification: () {},
             ),
