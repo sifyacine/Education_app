@@ -46,6 +46,7 @@ dependencies:
   flutter_native_splash: ^2.3.2
   smooth_page_indicator: ^1.1.0
   spincircle_bottom_bar: ^2.0.0
+  like_button: ^2.0.5
 
 
 
