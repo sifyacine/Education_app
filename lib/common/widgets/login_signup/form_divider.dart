@@ -5,9 +5,9 @@ class TFormDivider extends StatelessWidget {
   final String dividerText;
 
   const TFormDivider({
-    Key? key,
+    super.key,
     required this.dividerText,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

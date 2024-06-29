@@ -24,7 +24,7 @@ class CustomAppBar extends StatelessWidget {
           ),
           child: IconButton(
               iconSize: 30,
-              color: Color.fromARGB(255, 92, 91, 91),
+              color: const Color.fromARGB(255, 92, 91, 91),
               onPressed: onPressedProfil,
               icon: const Icon(Icons.person_2_outlined)),
         ),
@@ -62,7 +62,7 @@ class CustomAppBar extends StatelessWidget {
           ),
           child: IconButton(
               iconSize: 30,
-              color: Color.fromARGB(255, 102, 101, 101),
+              color: const Color.fromARGB(255, 102, 101, 101),
               onPressed: onPressedNotification,
               icon: const Icon(Icons.notifications_on_outlined)),
         )

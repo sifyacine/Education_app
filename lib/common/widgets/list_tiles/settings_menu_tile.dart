@@ -9,12 +9,11 @@ class TSettingsMenuTile extends StatelessWidget {
   final VoidCallback? onTab;
 
   const TSettingsMenuTile(
-      {Key? key,
+      {super.key,
       required this.icon,
       required this.title,
       required this.subtitle,
-      this.trailing, this.onTab})
-      : super(key: key);
+      this.trailing, this.onTab});
 
   @override
   Widget build(BuildContext context) {

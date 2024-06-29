@@ -6,7 +6,7 @@ import 'package:spincircle_bottom_bar/modals.dart';
 import 'package:spincircle_bottom_bar/spincircle_bottom_bar.dart';
 
 class NavigationMenu extends StatelessWidget {
-  const NavigationMenu({Key? key}) : super(key: key);
+  const NavigationMenu({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -25,9 +25,9 @@ class NavigationMenu extends StatelessWidget {
               SCBottomBarItem(icon: Iconsax.user, title: 'group', onPressed: () => controller.selectedIndex.value = 3),
             ],
             circleItems: [
-              SCItem(icon: Icon(Icons.add), onPressed: () {}),
-              SCItem(icon: Icon(Icons.print), onPressed: () {}),
-              SCItem(icon: Icon(Icons.map), onPressed: () {}),
+              SCItem(icon: const Icon(Icons.add), onPressed: () {}),
+              SCItem(icon: const Icon(Icons.print), onPressed: () {}),
+              SCItem(icon: const Icon(Icons.map), onPressed: () {}),
             ],
             circleColors: [Colors.blue, Colors.red, Colors.green, Colors.orange],
           ),
@@ -42,9 +42,9 @@ class NavigationController extends GetxController {
   final Rx<int> selectedIndex = 0.obs;
 
   final screens = [
-    Container(child: Center(child: Text('Home Screen'))),
-    Container(child: Center(child: Text('shorts video'))),
-    Container(child: Center(child: Text('new post'))),
-    Container(child: Center(child: Text('group'))),
+    Container(child: const Center(child: Text('Home Screen'))),
+    Container(child: const Center(child: Text('shorts video'))),
+    Container(child: const Center(child: Text('new post'))),
+    Container(child: const Center(child: Text('group'))),
   ];
 }

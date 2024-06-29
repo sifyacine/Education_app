@@ -10,12 +10,12 @@ import '../../../utils/helpers/helper_functions.dart';
 
 class SuccessScreen extends StatelessWidget {
   const SuccessScreen({
-    Key? key,
+    super.key,
     required this.image,
     required this.title,
     required this.subtitle,
     required this.onPressed,
-  }) : super(key: key);
+  });
 
   final String image, title, subtitle;
   final VoidCallback onPressed;

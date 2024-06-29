@@ -3,7 +3,7 @@ import '../../../utils/constants/sizes.dart';
 
 class TRoundedImage extends StatelessWidget {
   const TRoundedImage({
-    Key? key,
+    super.key,
     this.width,
     this.height,
     required this.imageUrl,
@@ -15,7 +15,7 @@ class TRoundedImage extends StatelessWidget {
     this.padding,
     this.applyImageRadius = true,
     this.borderRadius = TSizes.md,
-  }) : super(key: key);
+  });
 
   final double? width;
   final double? height;

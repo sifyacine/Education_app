@@ -35,7 +35,7 @@ class Welcome extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Row(
+                        const Row(
                           children: [
                             Icon(
                               Icons.person,
@@ -43,7 +43,7 @@ class Welcome extends StatelessWidget {
                             ),
                           ],
                         ),
-                        Text(
+                        const Text(
                           "Professor",
                           style: TextStyle(fontSize: 18),
                         ),
