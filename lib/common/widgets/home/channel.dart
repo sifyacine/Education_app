@@ -2,9 +2,14 @@ import 'package:education_app/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 
 class Channel extends StatelessWidget {
-  const Channel({super.key, required this.channelName, required this.onTap});
+  const Channel(
+      {super.key,
+      required this.channelName,
+      required this.onTap,
+      required this.imageName});
   final String channelName;
   final void Function()? onTap;
+  final String imageName;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -15,15 +20,20 @@ class Channel extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
-              width: 80,
-              height: 80,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(800),
-                  color: TColors.primaryColor),
-              child: const Icon(Icons.image),
+            ClipRRect(
+              borderRadius: BorderRadius.circular(80),
+              child: Card(
+                child: Image.asset(
+                  imageName,
+                  width: 80,
+                  height: 80,
+                  fit: BoxFit.fill,
+                ),
+              ),
             ),
-            Text(channelName)
+            Text(
+              channelName,
+            )
           ],
         ),
       ),
@@ -32,9 +42,15 @@ class Channel extends StatelessWidget {
 }
 
 class ChannelIcon extends StatelessWidget {
-  const ChannelIcon({super.key, this.onTap, required this.channelName});
+  const ChannelIcon(
+      {super.key,
+      this.onTap,
+      required this.channelName,
+      required this.imageName});
   final void Function()? onTap;
   final String channelName;
+  final String imageName;
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -44,14 +60,21 @@ class ChannelIcon extends StatelessWidget {
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Container(
-              width: 50,
-              height: 50,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(30),
-                  color: TColors.primaryColor),
-              child: const Icon(Icons.image),
-            ),
+            ClipRRect(
+                borderRadius: BorderRadius.circular(60),
+                child: Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.black, width: 2),
+                    borderRadius: BorderRadius.circular(60),
+                    color: Colors.white,
+                  ),
+                  child: Image.asset(
+                    imageName,
+                    width: 60,
+                    height: 60,
+                    fit: BoxFit.cover,
+                  ),
+                )),
             Text(channelName)
           ],
         ),
