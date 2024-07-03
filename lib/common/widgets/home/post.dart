@@ -54,7 +54,7 @@ class Post extends StatelessWidget {
                   Column(
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [Text(dateTime), Text(channelName)],
+                    children: [Text(channelName, style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: TColors.dark)),Text(dateTime,  style: TextStyle(fontSize: 12, color: TColors.kDarkGrey))],
                   ),
                 ],
               ),
@@ -62,7 +62,7 @@ class Post extends StatelessWidget {
                   onPressed: onSave,
                   icon: const Icon(
                     Icons.save,
-                    size: 32,
+                    size: 28,
                   ))
             ],
           ),
@@ -73,7 +73,7 @@ class Post extends StatelessWidget {
               Text(
                 postTitle,
                 style:
-                    const TextStyle(fontWeight: FontWeight.w600, fontSize: 19),
+                    const TextStyle(fontWeight: FontWeight.w600, fontSize: 14),
               )
             ],
           ),
@@ -82,7 +82,7 @@ class Post extends StatelessWidget {
           ),
           // third row for content <image>
           SizedBox(
-            width: Get.width,
+            width: double.infinity,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -95,48 +95,62 @@ class Post extends StatelessWidget {
               ],
             ),
           ),
-          InkWell(
-            onTap: onPressedLikes,
-            child: Text(
-              "  $likes likes",
-              style: const TextStyle(fontSize: 20),
-            ),
-          ),
-
-          // firdth row for like and comment
-          Container(
-            margin: const EdgeInsets.only(top: 5),
-            padding: const EdgeInsets.only(top: 10),
-            decoration: BoxDecoration(
-                color: TColors.primaryColor,
-                borderRadius: BorderRadius.circular(15)),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    LikeButton(
-                      onTap:
-                          onTapLikeButton /*(val) {
-                          val == true ? val = false : val = true;
-                          return Future<bool>.value(val);
-                        },*/
-                      ,
-                    ),
-                    const Text("Like")
-                  ],
+          const SizedBox(height: 12),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              InkWell(
+                onTap: onPressedLikes,
+                child: Text(
+                  "  $likes likes",
+                  style: const TextStyle(fontSize: 14),
                 ),
-                Row(
-                  children: [
-                    IconButton(
-                      onPressed: onTapCommentButton,
-                      icon: const Icon(Icons.comment),
-                    ),
-                    const Text("Comment")
-                  ],
-                )
-              ],
+              ),
+              InkWell(
+                onTap: onPressedLikes,
+                child: Text(
+                  "  $likes Comments",
+                  style: const TextStyle(fontSize: 14),
+                ),
+              ),
+            ],
+          ),
+          // firdth row for like and comment
+          Padding(
+            padding: const EdgeInsets.only(top: 5),
+            child: Container(
+              margin: const EdgeInsets.only(top: 5),
+              padding: const EdgeInsets.only(top: 10),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15)),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      LikeButton(
+                        onTap:
+                            onTapLikeButton /*(val) {
+                            val == true ? val = false : val = true;
+                            return Future<bool>.value(val);
+                          },*/
+                        ,
+                      ),
+                      const Text("Like")
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      IconButton(
+                        onPressed: onTapCommentButton,
+                        icon: const Icon(Icons.comment),
+                      ),
+                      const Text("Comment")
+                    ],
+                  )
+                ],
+              ),
             ),
           )
         ],

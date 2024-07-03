@@ -1,9 +1,12 @@
+import 'package:education_app/utils/constants/colors.dart';
 import 'package:education_app/utils/helpers/helper_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:spincircle_bottom_bar/modals.dart';
 import 'package:spincircle_bottom_bar/spincircle_bottom_bar.dart';
+
+import 'features/authentication/screens/home/home_screen.dart';
 
 class NavigationMenu extends StatelessWidget {
   const NavigationMenu({super.key});
@@ -18,18 +21,19 @@ class NavigationMenu extends StatelessWidget {
       bottomNavigationBar: Obx(
             () => SpinCircleBottomBarHolder(
           bottomNavigationBar: SCBottomBarDetails(
+
             items: [
-              SCBottomBarItem(icon: Iconsax.home, title: 'Home', onPressed: () => controller.selectedIndex.value = 0),
-              SCBottomBarItem(icon: Icons.explore, title: 'short videos', onPressed: () => controller.selectedIndex.value = 1),
-              SCBottomBarItem(icon: Iconsax.heart, title: 'new post', onPressed: () => controller.selectedIndex.value = 2),
-              SCBottomBarItem(icon: Iconsax.user, title: 'group', onPressed: () => controller.selectedIndex.value = 3),
+              SCBottomBarItem(icon: Icons.home, title: 'Home', onPressed: () => controller.selectedIndex.value = 0),
+              SCBottomBarItem(icon: Icons.video_library_outlined, title: 'Short', onPressed: () => controller.selectedIndex.value = 1),
+              SCBottomBarItem(icon: Icons.chat, title: 'Chat gpt', onPressed: () => controller.selectedIndex.value = 2),
+              SCBottomBarItem(icon: Icons.group_rounded, title: 'Group', onPressed: () => controller.selectedIndex.value = 3),
             ],
             circleItems: [
               SCItem(icon: const Icon(Icons.add), onPressed: () {}),
               SCItem(icon: const Icon(Icons.print), onPressed: () {}),
               SCItem(icon: const Icon(Icons.map), onPressed: () {}),
             ],
-            circleColors: [Colors.blue, Colors.red, Colors.green, Colors.orange],
+            circleColors: [TColors.primaryColor,TColors.primaryColor,TColors.primaryColor,TColors.primaryColor ],
           ),
           child: controller.screens[controller.selectedIndex.value],
         ),
@@ -42,7 +46,7 @@ class NavigationController extends GetxController {
   final Rx<int> selectedIndex = 0.obs;
 
   final screens = [
-    Container(child: const Center(child: Text('Home Screen'))),
+    const HomeScreen(),
     Container(child: const Center(child: Text('shorts video'))),
     Container(child: const Center(child: Text('new post'))),
     Container(child: const Center(child: Text('group'))),
