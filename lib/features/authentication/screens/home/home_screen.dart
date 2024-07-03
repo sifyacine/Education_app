@@ -3,7 +3,6 @@ import 'package:education_app/features/authentication/screens/home/widgets/chann
 import 'package:education_app/features/authentication/screens/home/widgets/home_appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../../../common/widgets/appbar/tabbar.dart';
 import '../../../../common/widgets/custom_shapes/containers/primary_header_container.dart';
 import '../../../../common/widgets/custom_shapes/containers/search_bar_container.dart';
 import '../../../../common/widgets/home/post.dart';
@@ -14,7 +13,7 @@ import '../../../../utils/constants/sizes.dart';
 import '../../../../utils/helpers/helper_functions.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -78,11 +77,17 @@ class HomeScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                bottom: const TTabBar(
-                  tabs: [
-                    Tab(child: Text('Courses')),
-                    Tab(child: Text('Posts')),
-                  ],
+                bottom: const PreferredSize(
+                  preferredSize: Size.fromHeight(50.0),
+                  child: TabBar(
+                    labelColor: Color.fromARGB(255, 53, 202, 96),
+                    unselectedLabelColor: Color.fromARGB(255, 112, 111, 111),
+                    indicatorColor: TColors.primaryColor,
+                    tabs: [
+                      Tab(text: 'Courses'),
+                      Tab(text: 'Posts'),
+                    ],
+                  ),
                 ),
               ),
             ];
