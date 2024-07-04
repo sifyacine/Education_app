@@ -31,121 +31,113 @@ class HomeScreen extends StatelessWidget {
                 backgroundColor: THelperFunctions.isDarkMode(context)
                     ? TColors.kBlack
                     : TColors.white,
-                expandedHeight: 440,
+                expandedHeight: 360,
                 flexibleSpace: const FlexibleSpaceBar(
-                  background: Padding(
-                    padding: EdgeInsets.only(top: TSizes.defaultSpace),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        TPrimaryHeaderContainer(
-                          child: Column(
-                            children: [
-                              /// appBar
-                              THomeAppBar(),
-                              SizedBox(height: TSizes.spaceBtwSections),
+                  background: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      TPrimaryHeaderContainer(
+                        child: Column(
+                          children: [
+                            /// appBar
+                            THomeAppBar(),
+                            SizedBox(height: TSizes.spaceBtwSections),
 
-                              /// searchbar
-                              TSearchContainer(
-                                text: 'Search in store',
+                            /// searchbar
+                            TSearchContainer(
+                              text: 'Courses, Posts',
+                            ),
+                            SizedBox(height: TSizes.spaceBtwSections),
+
+                            /// categories
+                            Padding(
+                              padding: EdgeInsets.only(left: TSizes.defaultSpace),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  /// heading
+                                  TSectionHeading(
+                                    title: 'Suggested channels',
+                                    textColor: TColors.white,
+                                  ),
+                                  SizedBox(height: TSizes.spaceBtwItems),
+
+                                  /// categories
+                                  TChannels(),
+                                ],
                               ),
-                              SizedBox(height: TSizes.spaceBtwSections),
-
-                              /// categories
-                              Padding(
-                                padding: EdgeInsets.only(left: TSizes.defaultSpace),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    /// heading
-                                    TSectionHeading(
-                                      title: 'Suggested channels',
-                                      textColor: TColors.white,
-                                    ),
-                                    SizedBox(height: TSizes.spaceBtwItems),
-
-                                    /// categories
-                                    TChannels(),
-                                  ],
-                                ),
-                              ),
-                              SizedBox(height: TSizes.spaceBtwSections),
-                            ],
-                          ),
+                            ),
+                            SizedBox(height: TSizes.spaceBtwSections),
+                          ],
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ),
                 bottom: const PreferredSize(
                   preferredSize: Size.fromHeight(50.0),
-                  child: TabBar(
-                    labelColor: Color.fromARGB(255, 53, 202, 96),
-                    unselectedLabelColor: Color.fromARGB(255, 112, 111, 111),
-                    indicatorColor: TColors.primaryColor,
-                    tabs: [
-                      Tab(text: 'Courses'),
-                      Tab(text: 'Posts'),
-                    ],
+                  child: Material(
+                    color: TColors.white,
+                    child: TabBar(
+                      dividerColor: TColors.primaryColor,
+                      labelColor:  TColors.primaryColor,
+                      unselectedLabelColor: TColors.kDarkGrey,
+                      tabs: [
+                        Tab(text: 'Courses'),
+                        Tab(text: 'Posts'),
+                      ],
+                    ),
                   ),
                 ),
               ),
             ];
           },
-          body: Expanded(
-            child: TabBarView(
-              children: [
-                ListView.separated(
-                  shrinkWrap: true,
-                  separatorBuilder: (context, i) => const Divider(
-                    height: 20,
-                    thickness: 5,
-                  ),
-                  itemCount: homeControllerImp.courses.length,
-                  itemBuilder: (context, i) => SuggestedCourse(
-                    imageName: homeControllerImp.posts[i]["post_img"],
-                    courseThumbnail: homeControllerImp.courses[i]
-                    ["course_thumbnail"],
-                    coursePrice: homeControllerImp.courses[i]["course_price"]
-                        .toString(),
-                    channelName:
-                    "  ${homeControllerImp.courses[i]["channel_name"]}",
-                    views:
-                    "${homeControllerImp.courses[i]["course_view"]} views"
-                        .toString(),
-                    titleName: homeControllerImp.courses[i]["course_title"],
-                  ),
+          body: TabBarView(
+            children: [
+              ListView.separated(
+                shrinkWrap: true,
+                separatorBuilder: (context, i) => const Divider(
+                  height: 20,
+                  thickness: 5,
                 ),
-                ListView.separated(
-                  itemCount: homeControllerImp.posts.length,
-                  shrinkWrap: true,
-                  separatorBuilder: (context, i) => const Divider(
-                    height: 50,
-                    thickness: 10,
-                  ),
-                  itemBuilder: (context, i) => Post(
-                    onSave: () {},
-                    onPressedLikes: () {},
-                    onTapChannelIcon: () {},
-                    onTapCommentButton: () {},
-                    onTapLikeButton: (val) {
-                      val == true ? val = false : val = true;
-                      return Future<bool>.value(val);
-                    },
-                    postTitle: homeControllerImp.posts[i]["post_title"],
-                    imageName: homeControllerImp.posts[i]["post_img"],
-                    imageLogoName: homeControllerImp.posts[i]
-                    ["channel_img"],
-                    channelName: homeControllerImp.posts[i]["post_channel"],
-                    likes: homeControllerImp.posts[i]["post_likes"],
-                    dateTime: "21/07/2024",
-                  ),
+                itemCount: homeControllerImp.courses.length,
+                itemBuilder: (context, i) => SuggestedCourse(
+                  imageName: homeControllerImp.posts[i]["post_img"],
+                  courseThumbnail: homeControllerImp.courses[i]["course_thumbnail"],
+                  coursePrice: homeControllerImp.courses[i]["course_price"].toString(),
+                  channelName: "  ${homeControllerImp.courses[i]["channel_name"]}",
+                  views: "${homeControllerImp.courses[i]["course_view"]} views".toString(),
+                  titleName: homeControllerImp.courses[i]["course_title"],
                 ),
-              ],
-            ),
-          ),
+              ),
+              ListView.separated(
+                itemCount: homeControllerImp.posts.length,
+                shrinkWrap: true,
+                separatorBuilder: (context, i) => const Divider(
+                  height: 50,
+                  thickness: 10,
+                ),
+                itemBuilder: (context, i) => Post(
+                  onSave: () {},
+                  onPressedLikes: () {},
+                  onTapChannelIcon: () {},
+                  onTapCommentButton: () {},
+                  onTapLikeButton: (val) {
+                    val == true ? val = false : val = true;
+                    return Future<bool>.value(val);
+                  },
+                  postTitle: homeControllerImp.posts[i]["post_title"],
+                  imageName: homeControllerImp.posts[i]["post_img"],
+                  imageLogoName: homeControllerImp.posts[i]["channel_img"],
+                  channelName: homeControllerImp.posts[i]["post_channel"],
+                  likes: homeControllerImp.posts[i]["post_likes"],
+                  dateTime: "21/07/2024",
+                ),
+              ),
+            ],
           ),
         ),
-      );
+      ),
+    );
   }
 }

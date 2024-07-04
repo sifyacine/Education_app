@@ -25,6 +25,9 @@ dependencies:
   smooth_page_indicator: ^1.1.0
   spincircle_bottom_bar: ^2.0.0
   like_button: ^2.0.5
+  flutter_rating_bar: ^4.0.1
+  video_player: ^2.8.7
+  chewie: ^1.8.1
 
 
 
@@ -32,8 +35,7 @@ dependencies:
   # state management
   get: ^4.6.5
   get_storage: ^2.1.1
-  video_player: ^2.8.7
-  chewie: ^1.8.1
+
 
 dev_dependencies:
   flutter_test:

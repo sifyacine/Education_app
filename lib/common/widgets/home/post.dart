@@ -98,15 +98,16 @@ class Post extends StatelessWidget {
           const SizedBox(height: 12),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              InkWell(
+              GestureDetector(
                 onTap: onPressedLikes,
                 child: Text(
                   "  $likes likes",
                   style: const TextStyle(fontSize: 14),
                 ),
               ),
-              InkWell(
+              GestureDetector(
                 onTap: onPressedLikes,
                 child: Text(
                   "  $likes Comments",

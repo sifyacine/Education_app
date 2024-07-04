@@ -1,43 +1,39 @@
+
 import 'package:education_app/utils/constants/colors.dart';
 import 'package:education_app/utils/helpers/helper_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:spincircle_bottom_bar/modals.dart';
-import 'package:spincircle_bottom_bar/spincircle_bottom_bar.dart';
 
+import 'features/authentication/screens/group_chat/groups_chat_page.dart';
 import 'features/authentication/screens/home/home_screen.dart';
 
+
 class NavigationMenu extends StatelessWidget {
-  const NavigationMenu({super.key});
+  const NavigationMenu({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final isDark = THelperFunctions.isDarkMode(context);
     final controller = Get.put(NavigationController());
-
     return Scaffold(
-      body: Obx(() => controller.screens[controller.selectedIndex.value]),
       bottomNavigationBar: Obx(
-            () => SpinCircleBottomBarHolder(
-          bottomNavigationBar: SCBottomBarDetails(
-
-            items: [
-              SCBottomBarItem(icon: Icons.home, title: 'Home', onPressed: () => controller.selectedIndex.value = 0),
-              SCBottomBarItem(icon: Icons.video_library_outlined, title: 'Short', onPressed: () => controller.selectedIndex.value = 1),
-              SCBottomBarItem(icon: Icons.chat, title: 'Chat gpt', onPressed: () => controller.selectedIndex.value = 2),
-              SCBottomBarItem(icon: Icons.group_rounded, title: 'Group', onPressed: () => controller.selectedIndex.value = 3),
-            ],
-            circleItems: [
-              SCItem(icon: const Icon(Icons.add), onPressed: () {}),
-              SCItem(icon: const Icon(Icons.print), onPressed: () {}),
-              SCItem(icon: const Icon(Icons.map), onPressed: () {}),
-            ],
-            circleColors: [TColors.primaryColor,TColors.primaryColor,TColors.primaryColor,TColors.primaryColor ],
-          ),
-          child: controller.screens[controller.selectedIndex.value],
+            () => NavigationBar(
+          height: 80,
+          backgroundColor: isDark ? TColors.dark : TColors.light,
+          elevation: 0,
+          selectedIndex: controller.selectedIndex.value,
+          onDestinationSelected: (index) => controller.selectedIndex.value = index,
+          destinations: const [
+            NavigationDestination(icon: Icon(Iconsax.home), label: 'Home'),
+            NavigationDestination(icon: Icon(Iconsax.video), label: 'Shorts'),
+            NavigationDestination(icon: Icon(Iconsax.add_square), label: 'Add'),
+            NavigationDestination(icon: Icon(Iconsax.activity), label: 'Chat gpt'),
+            NavigationDestination(icon: Icon(Iconsax.group), label: 'Groups'),
+          ],
         ),
       ),
+      body: Obx(() =>  controller.screens[controller.selectedIndex.value]),
     );
   }
 }
@@ -45,10 +41,8 @@ class NavigationMenu extends StatelessWidget {
 class NavigationController extends GetxController {
   final Rx<int> selectedIndex = 0.obs;
 
-  final screens = [
-    const HomeScreen(),
-    Container(child: const Center(child: Text('shorts video'))),
-    Container(child: const Center(child: Text('new post'))),
-    Container(child: const Center(child: Text('group'))),
-  ];
+  final screens = [const HomeScreen(), Container(), Container(), Container(), const GroupsScreen()];
+
 }
+
+

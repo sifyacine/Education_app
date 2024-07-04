@@ -1,5 +1,3 @@
-import 'package:education_app/common/widgets/home/post.dart';
-import 'package:education_app/common/widgets/home/suggested%20course.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:video_player/video_player.dart';
 import 'package:chewie/chewie.dart';
@@ -35,7 +33,7 @@ class HomeControllerImp extends HomeController {
       {
         "course_id": 1,
         "course_title":
-            "Do you need to organize your widgets into tabs? The DefaultTabController, TabBar, and TabBarView widgets are for you.",
+            "Dart full course",
         "course_description":
             "Do you need to organize your widgets into tabs? The DefaultTabController, TabBar, and TabBarView widgets are for you.This video is also subtitled in Chinese, Indonesian, Italian, Japanese, Korean, Portuguese, and Spanish.",
         "channel_name": "wael abo hamza",
@@ -51,7 +49,7 @@ class HomeControllerImp extends HomeController {
       {
         "course_id": 2,
         "course_title":
-            " and TabBarView widgets are for you.Do you need to organize your widgets into tabs? The DefaultTabController, TabBar,",
+            "Flutter full course",
         "course_description":
             "Do you need to organize your widgets into tabs? The DefaultTabController, TabBar, and TabBarView widgets are for you.This video is also subtitled in Chinese, Indonesian, Italian, Japanese, Korean, Portuguese, and Spanish.",
         "channel_name": "wael abo hamza",

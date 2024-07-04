@@ -21,12 +21,12 @@ class Channel extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ClipRRect(
-              borderRadius: BorderRadius.circular(80),
+              borderRadius: BorderRadius.circular(60),
               child: Card(
                 child: Image.asset(
                   imageName,
-                  width: 80,
-                  height: 80,
+                  width: 60,
+                  height: 60,
                   fit: BoxFit.fill,
                 ),
               ),
@@ -65,17 +65,17 @@ class ChannelIcon extends StatelessWidget {
                 child: Container(
                   decoration: BoxDecoration(
                     border: Border.all(color: Colors.black, width: 2),
-                    borderRadius: BorderRadius.circular(60),
+                    borderRadius: BorderRadius.circular(40),
                     color: Colors.white,
                   ),
                   child: Image.asset(
                     imageName,
-                    width: 60,
-                    height: 60,
+                    width: 40,
+                    height: 40,
                     fit: BoxFit.cover,
                   ),
                 )),
-            Text(channelName)
+            Text(channelName, style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
           ],
         ),
       ),

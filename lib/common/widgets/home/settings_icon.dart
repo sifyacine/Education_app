@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 
-import '../../../../utils/constants/colors.dart';
-import '../../../features/authentication/screens/profile/profile.dart';
+import '../../../features/authentication/screens/settings/settings.dart';
 
 
 class TSettingsIcon extends StatelessWidget {
@@ -15,7 +14,7 @@ class TSettingsIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return IconButton(onPressed: (){Get.to(const ProfileScreen());}, icon: const Icon(Iconsax.setting), color: iconColor,);
+    return IconButton(onPressed: (){Get.to(const SettingsPage());}, icon: const Icon(Iconsax.setting), color: iconColor,);
   }
 }
 
