@@ -2,6 +2,7 @@ import 'package:education_app/common/widgets/home/channel.dart';
 import 'package:education_app/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:like_button/like_button.dart';
 
 class Post extends StatelessWidget {
@@ -58,12 +59,7 @@ class Post extends StatelessWidget {
                   ),
                 ],
               ),
-              IconButton(
-                  onPressed: onSave,
-                  icon: const Icon(
-                    Icons.save,
-                    size: 28,
-                  ))
+
             ],
           ),
           // Second Row For title of the post
@@ -149,7 +145,20 @@ class Post extends StatelessWidget {
                       ),
                       const Text("Comment")
                     ],
-                  )
+                  ),
+                  Row(
+                    children: [
+                      IconButton(
+                          onPressed: onSave,
+                          icon: const Icon(
+                            Iconsax.save_2,
+                            size: 28,
+                          )),
+
+                      const Text("Save")
+                    ],
+                  ),
+
                 ],
               ),
             ),

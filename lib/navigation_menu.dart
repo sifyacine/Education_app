@@ -9,6 +9,7 @@ import 'features/authentication/screens/group_chat/groups_chat_page.dart';
 import 'features/authentication/screens/home/home_screen.dart';
 
 
+
 class NavigationMenu extends StatelessWidget {
   const NavigationMenu({Key? key}) : super(key: key);
 
@@ -29,7 +30,7 @@ class NavigationMenu extends StatelessWidget {
             NavigationDestination(icon: Icon(Iconsax.video), label: 'Shorts'),
             NavigationDestination(icon: Icon(Iconsax.add_square), label: 'Add'),
             NavigationDestination(icon: Icon(Iconsax.activity), label: 'Chat gpt'),
-            NavigationDestination(icon: Icon(Iconsax.group), label: 'Groups'),
+            NavigationDestination(icon: Icon(Iconsax.messages_2), label: 'Groups'),
           ],
         ),
       ),
