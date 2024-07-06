@@ -32,7 +32,7 @@ class HomeScreen extends StatelessWidget {
                     ? TColors.kBlack
                     : TColors.white,
                 expandedHeight: 360,
-                flexibleSpace: const FlexibleSpaceBar(
+                flexibleSpace: FlexibleSpaceBar(
                   background: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -40,34 +40,54 @@ class HomeScreen extends StatelessWidget {
                         child: Column(
                           children: [
                             /// appBar
-                            THomeAppBar(),
-                            SizedBox(height: TSizes.spaceBtwSections),
+                            const THomeAppBar(),
+                            const SizedBox(height: TSizes.spaceBtwSections),
 
                             /// searchbar
-                            TSearchContainer(
+                            const TSearchContainer(
                               text: 'Courses, Posts',
                             ),
-                            SizedBox(height: TSizes.spaceBtwSections),
+                            const SizedBox(height: TSizes.spaceBtwSections),
 
                             /// categories
                             Padding(
-                              padding: EdgeInsets.only(left: TSizes.defaultSpace),
+                              padding: const EdgeInsets.only(
+                                  left: TSizes.defaultSpace),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   /// heading
-                                  TSectionHeading(
+                                  const TSectionHeading(
                                     title: 'Suggested channels',
                                     textColor: TColors.white,
                                   ),
-                                  SizedBox(height: TSizes.spaceBtwItems),
+                                  const SizedBox(height: TSizes.spaceBtwItems),
 
                                   /// categories
-                                  TChannels(),
+                                  SizedBox(
+                                    height: 100,
+                                    child: ListView.separated(
+                                      separatorBuilder: (context, i) =>
+                                          const SizedBox(
+                                        width: 10,
+                                      ),
+                                      shrinkWrap: true,
+                                      scrollDirection: Axis.horizontal,
+                                      itemCount:
+                                          homeControllerImp.channels.length,
+                                      itemBuilder: (context, i) => TChannels(
+                                        onTapChannel: () {},
+                                        imageName: homeControllerImp.channels[i]
+                                            ["channel_img"],
+                                        channelName: homeControllerImp
+                                            .channels[i]["channel_name"],
+                                      ),
+                                    ),
+                                  )
                                 ],
                               ),
                             ),
-                            SizedBox(height: TSizes.spaceBtwSections),
+                            const SizedBox(height: TSizes.spaceBtwSections),
                           ],
                         ),
                       ),
@@ -80,7 +100,7 @@ class HomeScreen extends StatelessWidget {
                     color: TColors.white,
                     child: TabBar(
                       dividerColor: TColors.primaryColor,
-                      labelColor:  TColors.primaryColor,
+                      labelColor: TColors.primaryColor,
                       unselectedLabelColor: TColors.kDarkGrey,
                       tabs: [
                         Tab(text: 'Courses'),
@@ -103,10 +123,15 @@ class HomeScreen extends StatelessWidget {
                 itemCount: homeControllerImp.courses.length,
                 itemBuilder: (context, i) => SuggestedCourse(
                   imageName: homeControllerImp.posts[i]["post_img"],
-                  courseThumbnail: homeControllerImp.courses[i]["course_thumbnail"],
-                  coursePrice: homeControllerImp.courses[i]["course_price"].toString(),
-                  channelName: "  ${homeControllerImp.courses[i]["channel_name"]}",
-                  views: "${homeControllerImp.courses[i]["course_view"]} views".toString(),
+                  courseThumbnail: homeControllerImp.courses[i]
+                      ["course_thumbnail"],
+                  coursePrice:
+                      homeControllerImp.courses[i]["course_price"].toString(),
+                  rating: homeControllerImp.courses[i]["course_rating"],
+                  channelName:
+                      "  ${homeControllerImp.courses[i]["channel_name"]}",
+                  views: "${homeControllerImp.courses[i]["course_view"]} views"
+                      .toString(),
                   titleName: homeControllerImp.courses[i]["course_title"],
                 ),
               ),

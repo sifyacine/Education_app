@@ -11,6 +11,7 @@ class HomeControllerImp extends HomeController {
   late ChewieController chewieController;
   late List courses;
   late List posts;
+  late List channels;
 
   @override
   void onInit() async {
@@ -27,20 +28,60 @@ class HomeControllerImp extends HomeController {
   @override
   initData() async {
     videoPlayerController = VideoPlayerController.asset("assets/logo/1.mp4");
-
+    channels = [
+      {
+        "channel_id": 1,
+        "channel_name": "moha Med",
+        "channel_img": "assets/logo/1.png",
+        "channel_desc":
+            "i'am a professor of mathimatique, i work to help students",
+        "channel_createAT": "2024/01/08"
+      },
+      {
+        "channel_id": 2,
+        "channel_name": "I smail MS",
+        "channel_img": "assets/logo/2.png",
+        "channel_desc":
+            "i'am a professor of mathimatique, i work to help students",
+        "channel_createAT": "2024/01/24"
+      },
+      {
+        "channel_id": 3,
+        "channel_name": "Dr Wael",
+        "channel_img": "assets/logo/3.png",
+        "channel_desc":
+            "i'am a professor of mathimatique, i work to help students",
+        "channel_createAT": "2024/01/18"
+      },
+      {
+        "channel_id": 4,
+        "channel_name": "Dr Ahmed",
+        "channel_img": "assets/logo/4.png",
+        "channel_desc":
+            "i'am a professor of mathimatique, i work to help students",
+        "channel_createAT": "2024/01/18"
+      },
+      {
+        "channel_id": 5,
+        "channel_name": "Dr Loay",
+        "channel_img": "assets/logo/5.png",
+        "channel_desc":
+            "i'am a professor of mathimatique, i work to help students",
+        "channel_createAT": "2024/01/18"
+      },
+    ];
     // list of courses <From database>
     courses = [
       {
         "course_id": 1,
-        "course_title":
-            "Dart full course",
+        "course_title": "Dart full course",
         "course_description":
             "Do you need to organize your widgets into tabs? The DefaultTabController, TabBar, and TabBarView widgets are for you.This video is also subtitled in Chinese, Indonesian, Italian, Japanese, Korean, Portuguese, and Spanish.",
         "channel_name": "wael abo hamza",
         "url_video_introduction": "assets/logo/1.mp4",
         "course_view": "100",
         "course_thumbnail": "assets/logo/math.png",
-        "course_rating": "3.6",
+        "course_rating": "280",
         "course_price": 1000,
         "course_createAt": "2024/06/30",
         "professor_id":
@@ -48,8 +89,7 @@ class HomeControllerImp extends HomeController {
       },
       {
         "course_id": 2,
-        "course_title":
-            "Flutter full course",
+        "course_title": "Flutter full course",
         "course_description":
             "Do you need to organize your widgets into tabs? The DefaultTabController, TabBar, and TabBarView widgets are for you.This video is also subtitled in Chinese, Indonesian, Italian, Japanese, Korean, Portuguese, and Spanish.",
         "channel_name": "wael abo hamza",
@@ -57,7 +97,7 @@ class HomeControllerImp extends HomeController {
         "url_video_introduction": "assets/logo/1.mp4",
         "course_view": "73",
         "course_thumbnail": "assets/logo/english.png",
-        "course_rating": "2.0",
+        "course_rating": "175",
         "course_price": 800,
         "course_createAt": "2024/07/1",
         "professor_id":

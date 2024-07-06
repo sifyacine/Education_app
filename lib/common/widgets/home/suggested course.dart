@@ -13,7 +13,8 @@ class SuggestedCourse extends StatelessWidget {
       required this.titleName,
       required this.coursePrice,
       required this.courseThumbnail,
-      required this.imageName});
+      required this.imageName,
+      required this.rating});
 
   final String channelName;
   final String views;
@@ -22,6 +23,7 @@ class SuggestedCourse extends StatelessWidget {
   final String coursePrice;
   final String courseThumbnail;
   final String imageName;
+  final String rating;
 
   @override
   Widget build(BuildContext context) {
@@ -45,10 +47,22 @@ class SuggestedCourse extends StatelessWidget {
               ),
             ),
           ),
-          ChannelIcon(
-            onTap: () {},
-            imageName: imageName,
-            channelName: channelName,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              ChannelIcon(
+                onTap: () {},
+                imageName: imageName,
+                channelName: channelName,
+              ),
+              Text(
+                views,
+                style: const TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600,
+                    backgroundColor: TColors.primaryColor),
+              )
+            ],
           ),
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 18.0),
@@ -60,11 +74,9 @@ class SuggestedCourse extends StatelessWidget {
               ),
               const SizedBox(height: 10),
               Row(children: [
-                const TRatingBarIndicator(
-                  rating: 3.5
-                ),
+                const TRatingBarIndicator(rating: 3.5),
                 const SizedBox(width: 10),
-                const Text("(275)"),
+                Text(rating),
               ]),
               const SizedBox(height: 10),
               Text(

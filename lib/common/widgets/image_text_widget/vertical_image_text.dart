@@ -5,17 +5,18 @@ import '../../../utils/constants/sizes.dart';
 import '../../../utils/helpers/helper_functions.dart';
 
 class TVerticalTextImage extends StatelessWidget {
-  final String image, title;
+  final String image, channelName;
   final Color textColor;
   final Color? backgroundColor;
   final void Function()? onTap;
 
-  const TVerticalTextImage({super.key,
-  required this.image,
-  required this.title,
-  this.textColor = TColors.white,
-  this.backgroundColor,
-  this.onTap,
+  const TVerticalTextImage({
+    super.key,
+    required this.image,
+    required this.channelName,
+    this.textColor = TColors.white,
+    this.backgroundColor,
+    this.onTap,
   });
 
   @override
@@ -27,30 +28,39 @@ class TVerticalTextImage extends StatelessWidget {
         child: Column(
           children: [
             Container(
-              padding: const EdgeInsets.all(TSizes.sm),
-              height: 56,
-              width: 56,
+              height: 70,
+              width: 70,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(100),
-                color: backgroundColor ?? (THelperFunctions.isDarkMode(context) ? TColors.dark : TColors.white),
+                borderRadius: BorderRadius.circular(70),
+                color: backgroundColor ??
+                    (THelperFunctions.isDarkMode(context)
+                        ? TColors.dark
+                        : TColors.white),
               ),
               child: Center(
-                child: Image(
-                  image: AssetImage(image),
-                  fit: BoxFit.cover,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(70),
+                  child: Image(
+                    image: AssetImage(image),
+                    height: 70,
+                    width: 70,
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
             ),
             SizedBox(
-              width: 55,
-              child: Text(
-                title,
-                style: Theme.of(context)
-                    .textTheme
-                    .labelMedium!
-                    .apply(color: textColor),
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
+              width: 70,
+              child: Center(
+                child: Text(
+                  channelName,
+                  style: Theme.of(context)
+                      .textTheme
+                      .labelMedium!
+                      .apply(color: textColor),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
               ),
             ),
           ],

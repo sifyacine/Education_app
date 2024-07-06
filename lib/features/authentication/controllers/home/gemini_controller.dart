@@ -4,12 +4,12 @@ import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
 
-abstract class TestController extends GetxController {
+abstract class GeminiController extends GetxController {
   initData();
-  Future<void> sendMessage();
+  Future<void> sendMessage(BuildContext context);
 }
 
-class TestControllerImp extends TestController {
+class GeminiControllerImp extends GeminiController {
   late TextEditingController promptController;
   late String apiKey;
   late dynamic model;
@@ -37,7 +37,8 @@ class TestControllerImp extends TestController {
   }
 
   @override
-  Future<void> sendMessage() async {
+  Future<void> sendMessage(context) async {
+    FocusScope.of(context).unfocus();
     final message = promptController.text;
     promptController.clear();
     update();
