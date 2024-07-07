@@ -1,4 +1,3 @@
-import 'package:education_app/test.dart';
 import 'package:education_app/utils/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
