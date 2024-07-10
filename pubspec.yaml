@@ -18,7 +18,7 @@ dependencies:
 
   # utility packages
   http: ^1.1.0
-  intl: ^0.19.0
+  intl: ^0.18.1
   logger: ^2.0.1
   url_launcher: ^6.1.12
   flutter_native_splash: ^2.3.2
@@ -28,10 +28,6 @@ dependencies:
   flutter_rating_bar: ^4.0.1
   video_player: ^2.8.7
   chewie: ^1.8.1
-  file_picker: ^8.0.6
-  open_filex: ^4.4.0
-  image_picker: ^1.1.2
-  uuid: ^4.4.0
 
 
 
@@ -42,6 +38,7 @@ dependencies:
   flutter_gemini: ^2.0.4
   flutter_markdown: ^0.7.3
   google_generative_ai: ^0.4.3
+  connectivity_plus: ^6.0.3
 
 
 dev_dependencies:
@@ -66,6 +63,11 @@ flutter:
     - assets/forget_password/Email campaign-rafiki.png
     - assets/user/user-image.png
     - assets/logo/1.mp4
+    - assets/logo/2.mp4
+    - assets/logo/3.mp4
+    - assets/logo/4.mp4
+    - assets/logo/5.mp4
+
     - assets/logo/math.png
     - assets/logo/english.png
     - assets/logo/1.png
