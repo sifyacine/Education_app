@@ -1,8 +1,10 @@
-import 'package:education_app/features/authentication/controllers/home/gemini_controller.dart';
+import 'package:education_app/features/authentication/controllers/home/gemini/gemini_controller.dart';
 
 import 'package:education_app/utils/constants/colors.dart';
+import 'package:education_app/utils/models/geminiChatBots/model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:intl/intl.dart';
 
 class GeminiPage extends StatelessWidget {
@@ -52,53 +54,61 @@ class GeminiPage extends StatelessWidget {
                           ],
                         ),
                       )
-                    : Expanded(
-                        child: ListView.builder(
-                            itemCount: geminiControllerImp.prompt.length,
-                            itemBuilder: (context, i) {
-                              final message = geminiControllerImp.prompt[i];
-                              return UserPrompt(
-                                  isPrompt: message.isPrompt,
-                                  message: message.message,
-                                  geminiControllerImp: geminiControllerImp,
-                                  date: DateFormat('hh:mm a')
-                                      .format(message.time));
-                            })),
-                Padding(
-                  padding: const EdgeInsets.all(25),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        flex: 20,
-                        child: TextFormField(
-                          controller: geminiControllerImp.promptController,
-                          decoration: InputDecoration(
-                              border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(15)),
-                              focusedBorder: const OutlineInputBorder(
-                                  borderSide:
-                                      BorderSide(color: TColors.primaryColor)),
-                              labelText: "Message...",
-                              hintText: "Enter you question"),
-                        ),
+                    : geminiControllerImp.loading == true
+                        ? const Expanded(
+                            child: FittedBox(
+                              fit: BoxFit.none,
+                              child: CircularProgressIndicator(
+                                backgroundColor: TColors.primaryColor,
+                              ),
+                            ),
+                          )
+                        : Expanded(
+                            child: ListView.builder(
+                                controller:
+                                    geminiControllerImp.scrollController,
+                                itemCount: geminiControllerImp.prompt.length,
+                                itemBuilder: (context, i) {
+                                  final message = geminiControllerImp.prompt[i];
+                                  return UserPrompt(
+                                      isPrompt: message.isPrompt,
+                                      message: message.message,
+                                      geminiControllerImp: geminiControllerImp,
+                                      date: DateFormat('hh:mm a')
+                                          .format(message.time));
+                                })),
+                Row(
+                  children: [
+                    Expanded(
+                      flex: 20,
+                      child: TextFormField(
+                        controller: geminiControllerImp.promptController,
+                        decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(15)),
+                            focusedBorder: const OutlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: TColors.primaryColor)),
+                            labelText: "Message...",
+                            hintText: "Enter you question"),
                       ),
-                      const Spacer(),
-                      GestureDetector(
-                          onTap: () async {
-                            if (geminiControllerImp
-                                .promptController.text.isEmpty) {
-                              return;
-                            }
-                            {
-                              await geminiControllerImp.sendMessage(context);
-                            }
-                          },
-                          child: const CircleAvatar(
-                              radius: 29,
-                              backgroundColor: TColors.primaryColor,
-                              child: Icon(Icons.send)))
-                    ],
-                  ),
+                    ),
+                    const Spacer(),
+                    GestureDetector(
+                        onTap: () async {
+                          if (geminiControllerImp
+                              .promptController.text.isEmpty) {
+                            return;
+                          }
+                          {
+                            await geminiControllerImp.sendMessage(context);
+                          }
+                        },
+                        child: const CircleAvatar(
+                            radius: 29,
+                            backgroundColor: TColors.primaryColor,
+                            child: Icon(Icons.send)))
+                  ],
                 )
               ],
             ),
@@ -112,7 +122,7 @@ class GeminiPage extends StatelessWidget {
       required GeminiControllerImp geminiControllerImp,
       required String date}) {
     return Container(
-      margin: const EdgeInsets.all(10),
+      margin: const EdgeInsets.all(10).copyWith(left: isPrompt ? 80 : 10),
       width: double.infinity,
       decoration: BoxDecoration(
           color: isPrompt ? TColors.primaryBackground : TColors.primaryColor,
@@ -122,9 +132,11 @@ class GeminiPage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            isPrompt ? "You" : "Chat AI",
+            isPrompt ? " You :" : " Chat AI : ",
             style: const TextStyle(
+                backgroundColor: Colors.black,
                 fontWeight: FontWeight.bold,
+                color: Colors.white,
                 decoration: TextDecoration.underline),
           ),
           Text(

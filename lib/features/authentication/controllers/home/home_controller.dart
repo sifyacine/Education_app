@@ -27,7 +27,6 @@ class HomeControllerImp extends HomeController {
 
   @override
   initData() async {
-    videoPlayerController = VideoPlayerController.asset("assets/logo/1.mp4");
     channels = [
       {
         "channel_id": 1,
@@ -35,6 +34,10 @@ class HomeControllerImp extends HomeController {
         "channel_img": "assets/logo/1.png",
         "channel_desc":
             "i'am a professor of mathimatique, i work to help students",
+        "channel_phone": "0799148952",
+        "channel_email": "mohamed@gmail.com",
+        "channel_type": "professor",
+        "channel_likes": "95",
         "channel_createAT": "2024/01/08"
       },
       {
@@ -43,6 +46,10 @@ class HomeControllerImp extends HomeController {
         "channel_img": "assets/logo/2.png",
         "channel_desc":
             "i'am a professor of mathimatique, i work to help students",
+        "channel_phone": "0799148952",
+        "channel_email": "mohamed@gmail.com",
+        "channel_type": "student",
+        "channel_likes": "89",
         "channel_createAT": "2024/01/24"
       },
       {
@@ -51,6 +58,10 @@ class HomeControllerImp extends HomeController {
         "channel_img": "assets/logo/3.png",
         "channel_desc":
             "i'am a professor of mathimatique, i work to help students",
+        "channel_phone": "0799148952",
+        "channel_email": "mohamed@gmail.com",
+        "channel_type": "student",
+        "channel_likes": "65",
         "channel_createAT": "2024/01/18"
       },
       {
@@ -59,6 +70,10 @@ class HomeControllerImp extends HomeController {
         "channel_img": "assets/logo/4.png",
         "channel_desc":
             "i'am a professor of mathimatique, i work to help students",
+        "channel_phone": "0799148952",
+        "channel_email": "mohamed@gmail.com",
+        "channel_type": "professor",
+        "channel_likes": "115",
         "channel_createAT": "2024/01/18"
       },
       {
@@ -67,6 +82,10 @@ class HomeControllerImp extends HomeController {
         "channel_img": "assets/logo/5.png",
         "channel_desc":
             "i'am a professor of mathimatique, i work to help students",
+        "channel_phone": "0799148952",
+        "channel_email": "mohamed@gmail.com",
+        "channel_type": "student",
+        "channel_likes": "205",
         "channel_createAT": "2024/01/18"
       },
     ];

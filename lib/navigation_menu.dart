@@ -1,4 +1,6 @@
 import 'package:education_app/features/authentication/screens/home/gemini/gemini.dart';
+import 'package:education_app/features/authentication/screens/home/shorts%20videos/video_short.dart';
+
 import 'package:education_app/utils/constants/colors.dart';
 import 'package:education_app/utils/helpers/helper_functions.dart';
 import 'package:flutter/material.dart';
@@ -19,11 +21,15 @@ class NavigationMenu extends StatelessWidget {
       bottomNavigationBar: Obx(
         () => NavigationBar(
           height: 80,
-          backgroundColor: isDark ? TColors.dark : TColors.light,
           elevation: 0,
           selectedIndex: controller.selectedIndex.value,
-          onDestinationSelected: (index) =>
-              controller.selectedIndex.value = index,
+          onDestinationSelected: (index) {
+            if (index == 1) {
+              Get.to(() => const VideoShort());
+            } else {
+              controller.selectedIndex.value = index;
+            }
+          },
           destinations: const [
             NavigationDestination(icon: Icon(Iconsax.home), label: 'Home'),
             NavigationDestination(icon: Icon(Iconsax.video), label: 'Shorts'),
@@ -45,7 +51,7 @@ class NavigationController extends GetxController {
 
   final screens = [
     const HomeScreen(),
-    Container(),
+    const VideoShort(),
     Container(),
     const GeminiPage(),
     const GroupsScreen()

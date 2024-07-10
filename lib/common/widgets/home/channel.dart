@@ -6,17 +6,19 @@ class Channel extends StatelessWidget {
       {super.key,
       required this.channelName,
       required this.onTap,
+      required this.channelEmail,
       required this.imageName});
   final String channelName;
   final void Function()? onTap;
   final String imageName;
+  final String channelEmail;
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 4.0, vertical: 8.0),
       child: InkWell(
         onTap: onTap,
-        child: Column(
+        child: Row(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -31,9 +33,23 @@ class Channel extends StatelessWidget {
                 ),
               ),
             ),
-            Text(
-              channelName,
-            )
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(left: 10.0),
+                  child: Text(channelName,
+                      style: const TextStyle(
+                          fontSize: 18, fontWeight: FontWeight.bold)),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 10),
+                  child:
+                      Text(channelEmail, style: const TextStyle(fontSize: 15)),
+                ),
+              ],
+            ),
           ],
         ),
       ),
@@ -41,6 +57,7 @@ class Channel extends StatelessWidget {
   }
 }
 
+// ignore: must_be_immutable
 class ChannelIcon extends StatelessWidget {
   const ChannelIcon(
       {super.key,
@@ -75,7 +92,9 @@ class ChannelIcon extends StatelessWidget {
                     fit: BoxFit.cover,
                   ),
                 )),
-            Text(channelName, style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+            Text(channelName,
+                style:
+                    const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
           ],
         ),
       ),

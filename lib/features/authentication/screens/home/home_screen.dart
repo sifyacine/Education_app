@@ -1,4 +1,5 @@
 import 'package:education_app/features/authentication/controllers/home/home_controller.dart';
+import 'package:education_app/features/authentication/screens/home/channel/channel_page.dart';
 import 'package:education_app/features/authentication/screens/home/widgets/channels.dart';
 import 'package:education_app/features/authentication/screens/home/widgets/home_appbar.dart';
 import 'package:flutter/material.dart';
@@ -76,7 +77,43 @@ class HomeScreen extends StatelessWidget {
                                       itemCount:
                                           homeControllerImp.channels.length,
                                       itemBuilder: (context, i) => TChannels(
-                                        onTapChannel: () {},
+                                        onTapChannel: () async {
+                                          Get.to(() => const ChannelPage(),
+                                              arguments: {
+                                                "channel_id": homeControllerImp
+                                                    .channels[i]["channel_id"],
+                                                "channel_type":
+                                                    homeControllerImp
+                                                            .channels[i]
+                                                        ["channel_type"],
+                                                "channel_name":
+                                                    homeControllerImp
+                                                            .channels[i]
+                                                        ["channel_name"],
+                                                "channel_email":
+                                                    homeControllerImp
+                                                            .channels[i]
+                                                        ["channel_email"],
+                                                "channel_desc":
+                                                    homeControllerImp
+                                                            .channels[i]
+                                                        ["channel_desc"],
+                                                "channel_phone":
+                                                    homeControllerImp
+                                                            .channels[i]
+                                                        ["channel_phone"],
+                                                "channel_img": homeControllerImp
+                                                    .channels[i]["channel_img"],
+                                                "channel_likes":
+                                                    homeControllerImp
+                                                            .channels[i]
+                                                        ["channel_likes"],
+                                                "channel_createAT":
+                                                    homeControllerImp
+                                                            .channels[i]
+                                                        ["channel_createAT"],
+                                              });
+                                        },
                                         imageName: homeControllerImp.channels[i]
                                             ["channel_img"],
                                         channelName: homeControllerImp

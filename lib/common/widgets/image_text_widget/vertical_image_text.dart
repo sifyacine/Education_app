@@ -28,8 +28,8 @@ class TVerticalTextImage extends StatelessWidget {
         child: Column(
           children: [
             Container(
-              height: 60,
-              width: 60,
+              height: 70,
+              width: 70,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(70),
                 color: backgroundColor ??
