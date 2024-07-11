@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import '../../../utils/constants/colors.dart';
 import '../../../utils/constants/sizes.dart';
-import '../../../utils/helpers/helper_functions.dart';
 
 class TVerticalTextImage extends StatelessWidget {
   final String image, channelName;
@@ -33,9 +32,7 @@ class TVerticalTextImage extends StatelessWidget {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(70),
                 color: backgroundColor ??
-                    (THelperFunctions.isDarkMode(context)
-                        ? TColors.dark
-                        : TColors.white),
+                    (TColors.white),
               ),
               child: Center(
                 child: ClipRRect(

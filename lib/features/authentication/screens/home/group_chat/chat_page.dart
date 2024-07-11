@@ -5,7 +5,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'dart:io';
 
-import '../../controllers/group_chat/groupchat_controller.dart';
+import '../../../controllers/group_chat/groupchat_controller.dart';
 import 'chat_settings.dart';
 
 class ChatScreen extends StatefulWidget {

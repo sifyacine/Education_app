@@ -1,10 +1,8 @@
 import 'package:education_app/features/authentication/controllers/home/gemini/gemini_controller.dart';
 
 import 'package:education_app/utils/constants/colors.dart';
-import 'package:education_app/utils/models/geminiChatBots/model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:iconsax/iconsax.dart';
 import 'package:intl/intl.dart';
 
 class GeminiPage extends StatelessWidget {

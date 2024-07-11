@@ -1,14 +1,13 @@
 import 'dart:io';
-import 'package:education_app/features/authentication/screens/group_chat/widgets/shared_images_page.dart';
+import 'package:education_app/features/authentication/screens/home/group_chat/widgets/shared_images_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:image_picker/image_picker.dart';
-
-import '../../../../common/widgets/custom_shapes/containers/primary_header_container.dart';
-import '../../../../common/widgets/list_tiles/settings_menu_tile.dart';
-import '../../../../common/widgets/texts/section_heading.dart';
-import '../../../../utils/constants/sizes.dart';
+import '../../../../../common/widgets/custom_shapes/containers/primary_header_container.dart';
+import '../../../../../common/widgets/list_tiles/settings_menu_tile.dart';
+import '../../../../../common/widgets/texts/section_heading.dart';
+import '../../../../../utils/constants/sizes.dart';
 import 'invite_link_page.dart';
 import 'members_page.dart';
 

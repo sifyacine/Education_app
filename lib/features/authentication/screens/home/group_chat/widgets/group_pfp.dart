@@ -2,6 +2,9 @@ import 'package:education_app/common/widgets/image_text_widget/vertical_image_te
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../../../../utils/constants/colors.dart';
+import '../chat_page.dart';
+
 class TGroups extends StatelessWidget {
   const TGroups({
     super.key,
@@ -18,9 +21,10 @@ class TGroups extends StatelessWidget {
           itemBuilder: (_, index) {
             return TVerticalTextImage(
               image: "assets/user/user-image.png",
-              channelName: "E-Tech",
+              channelName: "english group",
+              textColor: TColors.kBlack,
               onTap: () {
-                Get.to(() => Container());
+                Get.to(() => ChatScreen());
               },
             );
           }),

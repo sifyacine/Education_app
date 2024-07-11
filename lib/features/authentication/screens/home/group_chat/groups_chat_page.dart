@@ -1,14 +1,15 @@
-import 'package:education_app/features/authentication/screens/group_chat/widgets/group_pfp.dart';
+import 'package:education_app/common/widgets/custom_shapes/containers/search_bar_container.dart';
+import 'package:education_app/features/authentication/screens/home/group_chat/widgets/group_pfp.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../common/widgets/appbar/appbar.dart';
-import '../../../../common/widgets/custom_shapes/containers/rounded_container.dart';
-import '../../../../common/widgets/custom_shapes/containers/search_bar_container.dart';
-import '../../../../common/widgets/images/rounded_images.dart';
-import '../../../../common/widgets/texts/section_heading.dart';
-import '../../../../utils/constants/colors.dart';
-import '../../../../utils/constants/sizes.dart';
-import '../home/widgets/channels.dart';
+import '../../../../../common/widgets/appbar/appbar.dart';
+import '../../../../../common/widgets/custom_shapes/containers/rounded_container.dart';
+import '../../../../../common/widgets/images/rounded_images.dart';
+import '../../../../../common/widgets/texts/section_heading.dart';
+import '../../../../../utils/constants/colors.dart';
+import '../../../../../utils/constants/sizes.dart';
+
+
 
 class GroupsScreen extends StatelessWidget {
   const GroupsScreen({Key? key}) : super(key: key);
@@ -16,7 +17,7 @@ class GroupsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: TAppBar(
+      appBar: const TAppBar(
         title: Text(
           "Chats",
         ),
@@ -24,9 +25,9 @@ class GroupsScreen extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            TSearchContainer(text: 'search...'),
-            SizedBox(height: TSizes.defaultSpace),
-            Padding(
+            const TSearchContainer(text: 'search...'),
+            const SizedBox(height: TSizes.defaultSpace),
+            const Padding(
               padding: EdgeInsets.only(left: TSizes.defaultSpace),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -44,18 +45,18 @@ class GroupsScreen extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: EdgeInsets.only(left: TSizes.defaultSpace , right: TSizes.defaultSpace),
+              padding: const EdgeInsets.only(left: TSizes.defaultSpace , right: TSizes.defaultSpace),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   /// heading
-                  TSectionHeading(
+                  const TSectionHeading(
                     title: 'Other groups',
                     textColor: TColors.kBlack,
                   ),
-                  SizedBox(height: TSizes.spaceBtwItems),
+                  const SizedBox(height: TSizes.spaceBtwItems),
                   TRoundedContainer(
-                    padding: EdgeInsets.only(left: TSizes.defaultSpace , right: TSizes.defaultSpace),
+                    padding: const EdgeInsets.only(left: TSizes.defaultSpace , right: TSizes.defaultSpace),
 
                     width: double.infinity,
                     showBorder: true,
@@ -65,9 +66,12 @@ class GroupsScreen extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                              'Heloo'
+                          const Row(
+                            children: [
+                              
+                            ],
                           ),
+                          TextButton(onPressed: (){}, child: Text("Join group")),
                         ]
                     ),
                   )

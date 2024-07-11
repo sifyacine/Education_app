@@ -1,9 +1,4 @@
-import 'package:education_app/common/widgets/home/channel.dart';
-import 'package:education_app/features/authentication/screens/home/channel/channel_page.dart';
-import 'package:education_app/features/authentication/screens/home/course_details/course_details.dart';
-import 'package:education_app/features/authentication/screens/home/shorts%20videos/video_short.dart';
-import 'package:education_app/features/authentication/screens/home/shorts%20videos/widget/short_video_item.dart';
-import 'package:education_app/test.dart';
+
 import 'package:education_app/utils/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

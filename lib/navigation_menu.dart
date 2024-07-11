@@ -1,13 +1,11 @@
 import 'package:education_app/features/authentication/screens/home/gemini/gemini.dart';
 import 'package:education_app/features/authentication/screens/home/shorts%20videos/video_short.dart';
 
-import 'package:education_app/utils/constants/colors.dart';
-import 'package:education_app/utils/helpers/helper_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 
-import 'features/authentication/screens/group_chat/groups_chat_page.dart';
+import 'features/authentication/screens/home/group_chat/groups_chat_page.dart';
 import 'features/authentication/screens/home/home_screen.dart';
 
 class NavigationMenu extends StatelessWidget {
@@ -15,7 +13,6 @@ class NavigationMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isDark = THelperFunctions.isDarkMode(context);
     final controller = Get.put(NavigationController());
     return Scaffold(
       bottomNavigationBar: Obx(

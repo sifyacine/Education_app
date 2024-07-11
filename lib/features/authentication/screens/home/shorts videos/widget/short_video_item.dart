@@ -1,6 +1,6 @@
 import 'package:chewie/chewie.dart';
-import 'package:education_app/common/widgets/home/channel.dart';
 import 'package:flutter/material.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:like_button/like_button.dart';
 
 class ShortVideoItem extends StatelessWidget {
@@ -10,6 +10,7 @@ class ShortVideoItem extends StatelessWidget {
       required this.videoTitle,
       required this.imageName,
       required this.channelName});
+
   final ChewieController chewieController;
   final String videoTitle;
   final String imageName;
@@ -28,28 +29,24 @@ class ShortVideoItem extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 const LikeButton(
-                  size: 45,
+                  size: 30,
                 ),
-                const SizedBox(
-                  height: 15,
-                ),
+                const SizedBox(height: 15),
                 InkWell(
                   onTap: () {},
                   child: const Icon(
                     Icons.comment_outlined,
                     color: Color.fromARGB(167, 255, 255, 255),
-                    size: 45,
+                    size: 30,
                   ),
                 ),
-                const SizedBox(
-                  height: 15,
-                ),
+                const SizedBox(height: 15),
                 InkWell(
                   onTap: () {},
                   child: const Icon(
-                    Icons.save,
+                    Iconsax.save_2,
                     color: Color.fromARGB(167, 255, 255, 255),
-                    size: 45,
+                    size: 30,
                   ),
                 ),
               ],

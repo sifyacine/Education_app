@@ -11,7 +11,6 @@ import '../../../../common/widgets/home/suggested course.dart';
 import '../../../../common/widgets/texts/section_heading.dart';
 import '../../../../utils/constants/colors.dart';
 import '../../../../utils/constants/sizes.dart';
-import '../../../../utils/helpers/helper_functions.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -35,9 +34,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 automaticallyImplyLeading: false,
                 pinned: true,
                 floating: true,
-                backgroundColor: THelperFunctions.isDarkMode(context)
-                    ? TColors.kBlack
-                    : TColors.white,
+                backgroundColor: TColors.white,
                 expandedHeight: 380,
                 flexibleSpace: FlexibleSpaceBar(
                   background: Column(

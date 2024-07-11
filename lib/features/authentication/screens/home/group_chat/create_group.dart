@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 
-import '../../../../utils/constants/colors.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
+
+import '../../../../../utils/constants/colors.dart';
 
 class CreateGroupScreen extends StatefulWidget {
   const CreateGroupScreen({Key? key}) : super(key: key);

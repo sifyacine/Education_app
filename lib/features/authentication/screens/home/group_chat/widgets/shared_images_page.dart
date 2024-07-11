@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../utils/constants/colors.dart';
+import '../../../../../../utils/constants/colors.dart';
+
 
 class SharedImagesPage extends StatefulWidget {
   const SharedImagesPage({Key? key}) : super(key: key);
