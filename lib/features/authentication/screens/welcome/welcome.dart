@@ -1,8 +1,6 @@
 import 'package:education_app/common/widgets/login_signup/form_divider.dart';
-import 'package:education_app/features/authentication/controllers/welcome/welcome_controller.dart';
 import 'package:education_app/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 
 class Welcome extends StatelessWidget {
@@ -10,7 +8,6 @@ class Welcome extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    WelcomeControllerImp welcomeControllerImp = Get.put(WelcomeControllerImp());
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(15),

@@ -2,35 +2,84 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:file_picker/file_picker.dart';
-import '../../controllers/group_chat/groupchat_controller.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'dart:io';
 
-class ChatScreen extends StatelessWidget {
+import '../../controllers/group_chat/groupchat_controller.dart';
+import 'chat_settings.dart';
+
+class ChatScreen extends StatefulWidget {
+  @override
+  State<ChatScreen> createState() => _ChatScreenState();
+}
+
+class _ChatScreenState extends State<ChatScreen> {
+  final ChatController chatController = Get.put(ChatController());
+  final TextEditingController messageController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Group Chat'),
+        title: InkWell(
+          onTap: () {
+            // Navigate to ChatSettingsPage when the app bar is tapped
+            Get.to(() => ChatSettingsPage());
+          },
+          child: const Row(
+            children: [
+              CircleAvatar(
+                backgroundImage: AssetImage('assets/user/profile_pic.avif'), // Replace with the actual image path or network image
+                radius: 20,
+              ),
+              SizedBox(width: 10),
+              Text('Group Chat Name'), // Replace with the actual group chat name
+            ],
+          ),
+        ),
       ),
-      body: Column(
-        children: <Widget>[
-          Expanded(
-            child: GetX<ChatController>(
-              init: ChatController(),
-              builder: (controller) {
-                return ListView.builder(
-                  reverse: true,
-                  itemCount: controller.messages.length,
-                  itemBuilder: (context, index) {
-                    return ChatMessageWidget(
-                      message: controller.messages[index],
-                    );
-                  },
-                );
+      body: Padding(
+        padding: const EdgeInsets.only(bottom: 12.0),
+        child: Column(
+          children: <Widget>[
+            Expanded(
+              child: GetX<ChatController>(
+                builder: (controller) {
+                  return ListView.builder(
+                    reverse: false,
+                    itemCount: controller.messages.length,
+                    itemBuilder: (context, index) {
+                      return ChatMessageWidget(
+                        message: controller.messages[index],
+                      );
+                    },
+                  );
+                },
+              ),
+            ),
+            ChatInputField(
+              controller: messageController,
+              onSendPressed: () {
+                if (messageController.text.isNotEmpty) {
+                  chatController.sendMessage(messageController.text);
+                  messageController.clear();
+                }
+              },
+              onImagePressed: () async {
+                final pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
+                if (pickedFile != null) {
+                  chatController.sendImage(pickedFile.path);
+                }
+              },
+              onFilePressed: () async {
+                final result = await FilePicker.platform.pickFiles();
+                if (result != null && result.files.single.path != null) {
+                  chatController.sendFile(result.files.single.path!);
+                }
               },
             ),
-          ),
-          ChatInputField(),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -44,24 +93,65 @@ class ChatMessageWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 14.0),
+      padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 14.0),
       child: Column(
         crossAxisAlignment: message.isMine ? CrossAxisAlignment.end : CrossAxisAlignment.start,
         children: <Widget>[
           Text(
             message.sender,
-            style: TextStyle(
+            style: const TextStyle(
               fontWeight: FontWeight.bold,
             ),
           ),
           Container(
-            margin: EdgeInsets.only(top: 5.0),
-            padding: EdgeInsets.all(10.0),
+            margin: const EdgeInsets.only(top: 5.0),
+            padding: const EdgeInsets.all(10.0),
             decoration: BoxDecoration(
               color: message.isMine ? Colors.blue[100] : Colors.grey[300],
               borderRadius: BorderRadius.circular(8.0),
             ),
-            child: Text(message.text),
+            child: Column(
+              children: [
+                if (message.imageUrl != null)
+                  Image.file(
+                    File(message.imageUrl!),
+                    width: 150,
+                    height: 150,
+                    fit: BoxFit.cover,
+                  ),
+                if (message.fileUrl != null)
+                  GestureDetector(
+                    onTap: () async {
+                      final url = message.fileUrl!;
+                      if (await canLaunch(url)) {
+                        await launch(url);
+                      } else {
+                        throw 'Could not launch $url';
+                      }
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.all(10.0),
+                      decoration: BoxDecoration(
+                        color: Colors.grey[200],
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                      child: const Row(
+                        children: [
+                          Icon(Icons.attach_file),
+                          SizedBox(width: 8.0),
+                          Expanded(
+                            child: Text(
+                              'File',
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                if (message.text.isNotEmpty) Text(message.text),
+              ],
+            ),
           ),
         ],
       ),
@@ -70,46 +160,17 @@ class ChatMessageWidget extends StatelessWidget {
 }
 
 class ChatInputField extends StatelessWidget {
-  final TextEditingController _controller = TextEditingController();
-  final ImagePicker _picker = ImagePicker();
+  final TextEditingController controller;
+  final VoidCallback onSendPressed;
+  final VoidCallback onImagePressed;
+  final VoidCallback onFilePressed;
 
-  void _sendMessage() {
-    if (_controller.text.trim().isEmpty) return;
-    Get.find<ChatController>().sendMessage(
-      ChatMessage(
-        sender: 'Me',
-        text: _controller.text.trim(),
-        isMine: true,
-      ),
-    );
-    _controller.clear();
-  }
-
-  Future<void> _pickImage() async {
-    final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
-    if (pickedFile != null) {
-      Get.find<ChatController>().sendMessage(
-        ChatMessage(
-          sender: 'Me',
-          text: 'Sent an image: ${pickedFile.path}',
-          isMine: true,
-        ),
-      );
-    }
-  }
-
-  Future<void> _pickFile() async {
-    FilePickerResult? result = await FilePicker.platform.pickFiles();
-    if (result != null) {
-      Get.find<ChatController>().sendMessage(
-        ChatMessage(
-          sender: 'Me',
-          text: 'Sent a file: ${result.files.single.name}',
-          isMine: true,
-        ),
-      );
-    }
-  }
+  ChatInputField({
+    required this.controller,
+    required this.onSendPressed,
+    required this.onImagePressed,
+    required this.onFilePressed,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -120,15 +181,15 @@ class ChatInputField extends StatelessWidget {
         children: <Widget>[
           IconButton(
             icon: const Icon(Icons.image),
-            onPressed: _pickImage,
+            onPressed: onImagePressed,
           ),
           IconButton(
             icon: const Icon(Icons.attach_file),
-            onPressed: _pickFile,
+            onPressed: onFilePressed,
           ),
           Expanded(
             child: TextField(
-              controller: _controller,
+              controller: controller,
               decoration: const InputDecoration(
                 hintText: 'Type a message',
                 border: InputBorder.none,
@@ -137,7 +198,7 @@ class ChatInputField extends StatelessWidget {
           ),
           IconButton(
             icon: const Icon(Icons.send),
-            onPressed: _sendMessage,
+            onPressed: onSendPressed,
           ),
         ],
       ),

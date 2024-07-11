@@ -1,8 +1,6 @@
 import 'package:education_app/common/widgets/home/channel.dart';
-import 'package:education_app/features/authentication/controllers/home/home_controller.dart';
 import 'package:education_app/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import '../courses_posts/rating_indecator.dart';
 
 class SuggestedCourse extends StatelessWidget {
@@ -27,7 +25,6 @@ class SuggestedCourse extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    HomeControllerImp homeControllerImp = Get.put(HomeControllerImp());
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(

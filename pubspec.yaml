@@ -81,7 +81,13 @@ flutter:
     - assets/logo/post2.png
     - assets/user/images.jpg
     - assets/logo/ai.png
-
+    - assets/user/profile_pic.avif
+    - assets/images/shared_image_0.jpg
+    - assets/images/shared_image_1.jpg
+    - assets/images/shared_image_2.jpg
+    - assets/images/shared_image_3.jpg
+    - assets/images/shared_image_4.jpg
+    - assets/images/shared_image_5.jpg
 
 
 

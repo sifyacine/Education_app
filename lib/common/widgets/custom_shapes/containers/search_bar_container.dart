@@ -4,27 +4,28 @@ import 'package:iconsax/iconsax.dart';
 import '../../../../utils/constants/colors.dart';
 import '../../../../utils/constants/sizes.dart';
 import '../../../../utils/device/device_utility.dart';
-import '../../../../utils/helpers/helper_functions.dart';
 
 class TSearchContainer extends StatelessWidget {
   const TSearchContainer({
-    super.key,
+    Key? key,
     required this.text,
     this.icon,
     this.showBackground = true,
-    this.showBorder = true, this.onTap,
+    this.showBorder = true,
+    this.onTap,
     this.padding = const EdgeInsets.symmetric(horizontal: TSizes.defaultSpace),
-  });
+    this.controller,
+  }) : super(key: key);
 
   final String text;
   final IconData? icon;
   final bool showBackground, showBorder;
   final void Function()? onTap;
   final EdgeInsetsGeometry padding;
+  final TextEditingController? controller;
 
   @override
   Widget build(BuildContext context) {
-    final isDark = THelperFunctions.isDarkMode(context);
     return GestureDetector(
       onTap: onTap,
       child: Padding(
@@ -33,11 +34,7 @@ class TSearchContainer extends StatelessWidget {
           width: TDeviceUtils.getScreenWidth(context),
           padding: const EdgeInsets.all(TSizes.md),
           decoration: BoxDecoration(
-            color: showBackground
-                ? isDark
-                    ? TColors.dark
-                    : TColors.light
-                : Colors.transparent,
+            color: showBackground ? Colors.transparent : null,
             borderRadius: BorderRadius.circular(TSizes.cardRadiuslg),
             border: showBorder ? Border.all(color: TColors.kGrey) : null,
           ),
@@ -50,9 +47,16 @@ class TSearchContainer extends StatelessWidget {
               const SizedBox(
                 width: TSizes.spaceBtwItems,
               ),
-              Text(
-                text,
-                style: Theme.of(context).textTheme.bodySmall,
+              Expanded(
+                child: TextField(
+                  controller: controller,
+                  decoration: InputDecoration(
+                    hintText: text,
+                    border: InputBorder.none,
+                    hintStyle: Theme.of(context).textTheme.bodySmall,
+                  ),
+                  style: Theme.of(context).textTheme.bodySmall,
+                ),
               ),
             ],
           ),

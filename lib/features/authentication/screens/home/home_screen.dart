@@ -13,11 +13,17 @@ import '../../../../utils/constants/colors.dart';
 import '../../../../utils/constants/sizes.dart';
 import '../../../../utils/helpers/helper_functions.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
   @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  @override
   Widget build(BuildContext context) {
+    TextEditingController searchController = TextEditingController();
     HomeControllerImp homeControllerImp = Get.put(HomeControllerImp());
     return DefaultTabController(
       length: 2,
@@ -32,7 +38,7 @@ class HomeScreen extends StatelessWidget {
                 backgroundColor: THelperFunctions.isDarkMode(context)
                     ? TColors.kBlack
                     : TColors.white,
-                expandedHeight: 360,
+                expandedHeight: 380,
                 flexibleSpace: FlexibleSpaceBar(
                   background: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -45,8 +51,9 @@ class HomeScreen extends StatelessWidget {
                             const SizedBox(height: TSizes.spaceBtwSections),
 
                             /// searchbar
-                            const TSearchContainer(
+                            TSearchContainer(
                               text: 'Courses, Posts',
+                              controller: searchController,
                             ),
                             const SizedBox(height: TSizes.spaceBtwSections),
 
@@ -70,7 +77,7 @@ class HomeScreen extends StatelessWidget {
                                     child: ListView.separated(
                                       separatorBuilder: (context, i) =>
                                           const SizedBox(
-                                        width: 10,
+                                        width: 10
                                       ),
                                       shrinkWrap: true,
                                       scrollDirection: Axis.horizontal,
