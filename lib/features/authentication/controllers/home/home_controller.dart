@@ -1,9 +1,12 @@
+import 'package:education_app/features/authentication/screens/home/course_details/course_details.dart';
+import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:video_player/video_player.dart';
 import 'package:chewie/chewie.dart';
 
 abstract class HomeController extends GetxController {
   initData();
+  onTapCourse(int i);
 }
 
 class HomeControllerImp extends HomeController {
@@ -29,7 +32,7 @@ class HomeControllerImp extends HomeController {
   initData() async {
     channels = [
       {
-        "channel_id": 1,
+        "channel_id": "1",
         "channel_name": "moha Med",
         "channel_img": "assets/logo/1.png",
         "channel_desc":
@@ -41,7 +44,7 @@ class HomeControllerImp extends HomeController {
         "channel_createAT": "2024/01/08"
       },
       {
-        "channel_id": 2,
+        "channel_id": "2",
         "channel_name": "I smail MS",
         "channel_img": "assets/logo/2.png",
         "channel_desc":
@@ -97,13 +100,15 @@ class HomeControllerImp extends HomeController {
         "course_description":
             "Do you need to organize your widgets into tabs? The DefaultTabController, TabBar, and TabBarView widgets are for you.This video is also subtitled in Chinese, Indonesian, Italian, Japanese, Korean, Portuguese, and Spanish.",
         "channel_name": "wael abo hamza",
+        "channel_img": "assets/logo/3.png",
+
         "url_video_introduction": "assets/logo/1.mp4",
         "course_view": "100",
         "course_thumbnail": "assets/logo/math.png",
-        "course_rating": "280",
+        "course_rating": 4.6,
         "course_price": 1000,
         "course_createAt": "2024/06/30",
-        "professor_id":
+        "channel_id":
             1 // the key of the relation between table professor and table courses
       },
       {
@@ -112,14 +117,15 @@ class HomeControllerImp extends HomeController {
         "course_description":
             "Do you need to organize your widgets into tabs? The DefaultTabController, TabBar, and TabBarView widgets are for you.This video is also subtitled in Chinese, Indonesian, Italian, Japanese, Korean, Portuguese, and Spanish.",
         "channel_name": "wael abo hamza",
+        "channel_img": "assets/logo/2.png",
 
         "url_video_introduction": "assets/logo/1.mp4",
         "course_view": "73",
         "course_thumbnail": "assets/logo/english.png",
-        "course_rating": "175",
+        "course_rating": 3.5,
         "course_price": 800,
         "course_createAt": "2024/07/1",
-        "professor_id":
+        "channel_id":
             2 // the key of the relation between table professor and table courses
       },
     ];
@@ -146,5 +152,25 @@ class HomeControllerImp extends HomeController {
         "post_createAT": "2024/07/07",
       },
     ];
+  }
+
+  @override
+  onTapCourse(i) {
+    Get.to(() => const CourseDetails(), arguments: [
+      {
+        "course_id": courses[i]["course_id"],
+        "course_title": courses[i]["course_title"],
+        "course_desc": courses[i]["course_description"],
+        "channel_name": courses[i]["channel_name"],
+        "channel_img": courses[i]["channel_img"],
+        "url_video_introduction": courses[i]["url_video_introduction"],
+        "course_view": courses[i]["course_view"],
+        "course_thumbnail": courses[i]["course_thumbnail"],
+        "course_rating": courses[i]["course_rating"],
+        "course_price": courses[i]["course_price"],
+        "course_createAt": courses[i]["course_createAt"],
+        "channel_id": courses[i]["channel_id"]
+      }
+    ]);
   }
 }

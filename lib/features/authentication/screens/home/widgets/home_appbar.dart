@@ -26,7 +26,7 @@ class THomeAppBar extends StatelessWidget {
                 height: 60,
                 imageUrl: 'assets/user/user-image.png',
               ),),
-          const SizedBox(width: 8.0),
+          SizedBox(width: 8.0),
           Column(
             children: [
               Text(
@@ -36,7 +36,7 @@ class THomeAppBar extends StatelessWidget {
                     .headlineSmall!
                     .apply(color: TColors.kBlack),
               ),
-              const SizedBox(height: 6.0),
+              SizedBox(height: 6.0),
               Text(
                 "Sif Yacine",
                 style: Theme.of(context)

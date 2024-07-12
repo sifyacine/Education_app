@@ -11,18 +11,13 @@ import '../../../../common/widgets/home/suggested course.dart';
 import '../../../../common/widgets/texts/section_heading.dart';
 import '../../../../utils/constants/colors.dart';
 import '../../../../utils/constants/sizes.dart';
+import '../../../../utils/helpers/helper_functions.dart';
 
-class HomeScreen extends StatefulWidget {
+class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
-  @override
   Widget build(BuildContext context) {
-    TextEditingController searchController = TextEditingController();
     HomeControllerImp homeControllerImp = Get.put(HomeControllerImp());
     return DefaultTabController(
       length: 2,
@@ -34,8 +29,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 automaticallyImplyLeading: false,
                 pinned: true,
                 floating: true,
-                backgroundColor: TColors.white,
-                expandedHeight: 380,
+                backgroundColor: THelperFunctions.isDarkMode(context)
+                    ? TColors.kBlack
+                    : TColors.white,
+                expandedHeight: 360,
                 flexibleSpace: FlexibleSpaceBar(
                   background: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -48,9 +45,8 @@ class _HomeScreenState extends State<HomeScreen> {
                             const SizedBox(height: TSizes.spaceBtwSections),
 
                             /// searchbar
-                            TSearchContainer(
+                            const TSearchContainer(
                               text: 'Courses, Posts',
-                              controller: searchController,
                             ),
                             const SizedBox(height: TSizes.spaceBtwSections),
 
@@ -74,7 +70,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     child: ListView.separated(
                                       separatorBuilder: (context, i) =>
                                           const SizedBox(
-                                        width: 10
+                                        width: 10,
                                       ),
                                       shrinkWrap: true,
                                       scrollDirection: Axis.horizontal,
@@ -162,18 +158,25 @@ class _HomeScreenState extends State<HomeScreen> {
                   thickness: 5,
                 ),
                 itemCount: homeControllerImp.courses.length,
-                itemBuilder: (context, i) => SuggestedCourse(
-                  imageName: homeControllerImp.posts[i]["post_img"],
-                  courseThumbnail: homeControllerImp.courses[i]
-                      ["course_thumbnail"],
-                  coursePrice:
-                      homeControllerImp.courses[i]["course_price"].toString(),
-                  rating: homeControllerImp.courses[i]["course_rating"],
-                  channelName:
-                      "  ${homeControllerImp.courses[i]["channel_name"]}",
-                  views: "${homeControllerImp.courses[i]["course_view"]} views"
-                      .toString(),
-                  titleName: homeControllerImp.courses[i]["course_title"],
+                itemBuilder: (context, i) => InkWell(
+                  onTap: () async {
+                    await homeControllerImp.onTapCourse(i);
+                  },
+                  child: SuggestedCourse(
+                    imageName: homeControllerImp.posts[i]["post_img"],
+                    courseThumbnail: homeControllerImp.courses[i]
+                        ["course_thumbnail"],
+                    coursePrice:
+                        homeControllerImp.courses[i]["course_price"].toString(),
+                    rating: homeControllerImp.courses[i]["course_rating"]
+                        .toString(),
+                    channelName:
+                        "  ${homeControllerImp.courses[i]["channel_name"]}",
+                    views:
+                        "${homeControllerImp.courses[i]["course_view"]} views"
+                            .toString(),
+                    titleName: homeControllerImp.courses[i]["course_title"],
+                  ),
                 ),
               ),
               ListView.separated(
