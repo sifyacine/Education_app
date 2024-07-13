@@ -16,7 +16,7 @@ class GroupsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: TAppBar(
+      appBar: const TAppBar(
         title: Text(
           "Chats",
         ),
@@ -24,9 +24,9 @@ class GroupsScreen extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            TSearchContainer(text: 'search...'),
-            SizedBox(height: TSizes.defaultSpace),
-            Padding(
+            const TSearchContainer(text: 'search...'),
+            const SizedBox(height: TSizes.defaultSpace),
+            const Padding(
               padding: EdgeInsets.only(left: TSizes.defaultSpace),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -44,25 +44,25 @@ class GroupsScreen extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: EdgeInsets.only(left: TSizes.defaultSpace , right: TSizes.defaultSpace),
+              padding: const EdgeInsets.only(left: TSizes.defaultSpace , right: TSizes.defaultSpace),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   /// heading
-                  TSectionHeading(
+                  const TSectionHeading(
                     title: 'Other groups',
                     textColor: TColors.kBlack,
                   ),
-                  SizedBox(height: TSizes.spaceBtwItems),
+                  const SizedBox(height: TSizes.spaceBtwItems),
                   TRoundedContainer(
-                    padding: EdgeInsets.only(left: TSizes.defaultSpace , right: TSizes.defaultSpace),
+                    padding: const EdgeInsets.only(left: TSizes.defaultSpace , right: TSizes.defaultSpace),
 
                     width: double.infinity,
                     showBorder: true,
                     backgroundColor: TColors.primaryColor.withOpacity(0.5),
                     borderColor: TColors.kGrey,
                     margin: const EdgeInsets.only(bottom: TSizes.spaceBtwItems),
-                    child: Column(
+                    child: const Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(

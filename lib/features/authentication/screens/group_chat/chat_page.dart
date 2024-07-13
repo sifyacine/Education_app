@@ -1,12 +1,13 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'dart:io';
 
-import '../../../controllers/home/group_chat/groupchat_controller.dart';
-import 'chat_settings.dart';
+import '../../controllers/home/group_chat/groupchat_controller.dart';
+import '../home/group_chat/chat_settings.dart';
+
 
 class ChatScreen extends StatefulWidget {
   @override
@@ -24,12 +25,15 @@ class _ChatScreenState extends State<ChatScreen> {
         title: InkWell(
           onTap: () {
             // Navigate to ChatSettingsPage when the app bar is tapped
-            Get.to(() => const ChatSettingsPage());
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => ChatSettingsPage()),
+            );
           },
-          child: const Row(
+          child: Row(
             children: [
               CircleAvatar(
-                backgroundImage: AssetImage('assets/user/profile_pic.avif'), // Replace with the actual image path or network image
+                backgroundImage: AssetImage('assets/images/profile_pic.png'), // Replace with the actual image path or network image
                 radius: 20,
               ),
               SizedBox(width: 10),
@@ -38,48 +42,45 @@ class _ChatScreenState extends State<ChatScreen> {
           ),
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(12.0),
-        child: Column(
-          children: <Widget>[
-            Expanded(
-              child: GetX<ChatController>(
-                builder: (controller) {
-                  return ListView.builder(
-                    reverse: false,
-                    itemCount: controller.messages.length,
-                    itemBuilder: (context, index) {
-                      return ChatMessageWidget(
-                        message: controller.messages[index],
-                      );
-                    },
-                  );
-                },
-              ),
-            ),
-            ChatInputField(
-              controller: messageController,
-              onSendPressed: () {
-                if (messageController.text.isNotEmpty) {
-                  chatController.sendMessage(messageController.text);
-                  messageController.clear();
-                }
-              },
-              onImagePressed: () async {
-                final pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
-                if (pickedFile != null) {
-                  chatController.sendImage(pickedFile.path);
-                }
-              },
-              onFilePressed: () async {
-                final result = await FilePicker.platform.pickFiles();
-                if (result != null && result.files.single.path != null) {
-                  chatController.sendFile(result.files.single.path!);
-                }
+      body: Column(
+        children: <Widget>[
+          Expanded(
+            child: GetX<ChatController>(
+              builder: (controller) {
+                return ListView.builder(
+                  reverse: false,
+                  itemCount: controller.messages.length,
+                  itemBuilder: (context, index) {
+                    return ChatMessageWidget(
+                      message: controller.messages[index],
+                    );
+                  },
+                );
               },
             ),
-          ],
-        ),
+          ),
+          ChatInputField(
+            controller: messageController,
+            onSendPressed: () {
+              if (messageController.text.isNotEmpty) {
+                chatController.sendMessage(messageController.text);
+                messageController.clear();
+              }
+            },
+            onImagePressed: () async {
+              final pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
+              if (pickedFile != null) {
+                chatController.sendImage(pickedFile.path);
+              }
+            },
+            onFilePressed: () async {
+              final result = await FilePicker.platform.pickFiles();
+              if (result != null && result.files.single.path != null) {
+                chatController.sendFile(result.files.single.path!);
+              }
+            },
+          ),
+        ],
       ),
     );
   }
@@ -93,19 +94,19 @@ class ChatMessageWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 14.0),
+      padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 14.0),
       child: Column(
         crossAxisAlignment: message.isMine ? CrossAxisAlignment.end : CrossAxisAlignment.start,
         children: <Widget>[
           Text(
             message.sender,
-            style: const TextStyle(
+            style: TextStyle(
               fontWeight: FontWeight.bold,
             ),
           ),
           Container(
-            margin: const EdgeInsets.only(top: 5.0),
-            padding: const EdgeInsets.all(10.0),
+            margin: EdgeInsets.only(top: 5.0),
+            padding: EdgeInsets.all(10.0),
             decoration: BoxDecoration(
               color: message.isMine ? Colors.blue[100] : Colors.grey[300],
               borderRadius: BorderRadius.circular(8.0),
@@ -113,21 +114,11 @@ class ChatMessageWidget extends StatelessWidget {
             child: Column(
               children: [
                 if (message.imageUrl != null)
-                  GestureDetector(
-                    onTap: () {
-                      showDialog(
-                        context: context,
-                        builder: (context) => Dialog(
-                          child: Image.file(File(message.imageUrl!)),
-                        ),
-                      );
-                    },
-                    child: Image.file(
-                      File(message.imageUrl!),
-                      width: 150,
-                      height: 150,
-                      fit: BoxFit.cover,
-                    ),
+                  Image.file(
+                    File(message.imageUrl!),
+                    width: 150,
+                    height: 150,
+                    fit: BoxFit.cover,
                   ),
                 if (message.fileUrl != null)
                   GestureDetector(
@@ -140,21 +131,20 @@ class ChatMessageWidget extends StatelessWidget {
                       }
                     },
                     child: Container(
-                      width: 150,
-                      height: 150,
-                      padding: const EdgeInsets.all(10.0),
+                      padding: EdgeInsets.all(10.0),
                       decoration: BoxDecoration(
                         color: Colors.grey[200],
                         borderRadius: BorderRadius.circular(8.0),
                       ),
-                      child: const Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
+                      child: Row(
                         children: [
-                          Icon(Icons.attach_file, size: 30),
-                          SizedBox(height: 8.0),
-                          Text(
-                            'File',
-                            overflow: TextOverflow.ellipsis,
+                          Icon(Icons.attach_file),
+                          SizedBox(width: 8.0),
+                          Expanded(
+                            child: Text(
+                              'File',
+                              overflow: TextOverflow.ellipsis,
+                            ),
                           ),
                         ],
                       ),
