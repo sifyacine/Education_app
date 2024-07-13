@@ -24,7 +24,6 @@ class TSearchContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isDark = THelperFunctions.isDarkMode(context);
     return GestureDetector(
       onTap: onTap,
       child: Padding(
@@ -33,11 +32,7 @@ class TSearchContainer extends StatelessWidget {
           width: TDeviceUtils.getScreenWidth(context),
           padding: const EdgeInsets.all(TSizes.md),
           decoration: BoxDecoration(
-            color: showBackground
-                ? isDark
-                    ? TColors.dark
-                    : TColors.light
-                : Colors.transparent,
+            color: Colors.transparent,
             borderRadius: BorderRadius.circular(TSizes.cardRadiuslg),
             border: showBorder ? Border.all(color: TColors.kGrey) : null,
           ),
