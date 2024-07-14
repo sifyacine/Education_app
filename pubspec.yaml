@@ -41,6 +41,7 @@ dependencies:
   flutter_markdown: ^0.7.3
   google_generative_ai: ^0.4.3
   connectivity_plus: ^6.0.3
+  camera: ^0.10.0
 
 
 dev_dependencies:

@@ -78,7 +78,7 @@ class AddOptionsModal extends StatelessWidget {
             leading: const Icon(Iconsax.video),
             title: const Text('Add Short'),
             onTap: () {
-              Get.to(() => const AddShort());
+              Get.to(() => AddShortReelPage());
             },
           ),
         ],

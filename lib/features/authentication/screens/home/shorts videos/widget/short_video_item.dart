@@ -1,16 +1,10 @@
 import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_navigation/get_navigation.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:like_button/like_button.dart';
-
-import '../../../../../../navigation_menu.dart';
-import '../../../../controllers/home/home_controller.dart';
 import '../../channel/channel_page.dart';
 import '../../comments_page.dart';
-import '../../home_screen.dart';
 
 class ShortVideoItem extends StatelessWidget {
   const ShortVideoItem({
@@ -28,7 +22,6 @@ class ShortVideoItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    HomeControllerImp homeControllerImp = Get.put(HomeControllerImp());
 
     return Stack(
       alignment: Alignment.center,
