@@ -1,6 +1,5 @@
 import 'package:education_app/features/authentication/screens/home/course_details/course_details.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:video_player/video_player.dart';
 import 'package:chewie/chewie.dart';
 

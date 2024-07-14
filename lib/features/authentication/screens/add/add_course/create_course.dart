@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class CreateVideoBottomSheet extends StatefulWidget {
   final Function(double) onUploadComplete;
 
-  CreateVideoBottomSheet({required this.onUploadComplete});
+  const CreateVideoBottomSheet({super.key, required this.onUploadComplete});
 
   @override
   _CreateVideoBottomSheetState createState() => _CreateVideoBottomSheetState();
@@ -28,7 +28,6 @@ class _CreateVideoBottomSheetState extends State<CreateVideoBottomSheet> {
     setState(() {
       isUploading = false;
     });
-
     Navigator.pop(context);
   }
 
@@ -43,7 +42,7 @@ class _CreateVideoBottomSheetState extends State<CreateVideoBottomSheet> {
             "Create a Video",
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
-          SizedBox(height: 12.0),
+          const SizedBox(height: 12.0),
           TextFormField(
             controller: _titleController,
             decoration: const InputDecoration(labelText: "Video Title"),

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../../common/widgets/texts/section_heading.dart';
-import '../../../../utils/constants/colors.dart';
-import 'add_course/upload_course.dart';
+import '../../../../../common/widgets/texts/section_heading.dart';
+import '../../../../../utils/constants/colors.dart';
+import 'upload_course.dart';
 
 class AddCourse extends StatelessWidget {
-  const AddCourse({Key? key}) : super(key: key);
+  const AddCourse({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +46,7 @@ class AddCourse extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 16),
-              TSectionHeading(
+              const TSectionHeading(
                 title: 'introduction of the course',
               ),
               const SizedBox(height: 16),

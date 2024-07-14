@@ -1,14 +1,13 @@
 import 'package:education_app/features/authentication/screens/home/gemini/gemini.dart';
 import 'package:education_app/features/authentication/screens/home/shorts%20videos/video_short.dart';
-import 'package:education_app/utils/helpers/helper_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 
-import 'features/authentication/screens/add/add_course.dart';
+import 'features/authentication/screens/add/add_course/add_course.dart';
 import 'features/authentication/screens/add/add_post.dart';
-import 'features/authentication/screens/add/add_short.dart';
-import 'features/authentication/screens/group_chat/groups_chat_page.dart';
+import 'features/authentication/screens/add/add_short/add_short.dart';
+import 'features/authentication/screens/home/group_chat/groups_chat_page.dart';
 import 'features/authentication/screens/home/home_screen.dart';
 
 class NavigationMenu extends StatelessWidget {
@@ -16,31 +15,33 @@ class NavigationMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isDark = THelperFunctions.isDarkMode(context);
     final controller = Get.put(NavigationController());
     return Scaffold(
       bottomNavigationBar: Obx(
-            () => NavigationBar(
-          height: 80,
-          elevation: 0,
-          selectedIndex: controller.selectedIndex.value,
-          onDestinationSelected: (index) {
-            if (index == 2) {
-              showModalBottomSheet(
-                context: context,
-                builder: (context) => const AddOptionsModal(),
-              );
-            } else {
-              controller.selectedIndex.value = index;
-            }
-          },
-          destinations: const [
-            NavigationDestination(icon: Icon(Iconsax.home), label: 'Home'),
-            NavigationDestination(icon: Icon(Iconsax.video), label: 'Shorts'),
-            NavigationDestination(icon: Icon(Iconsax.add_square), label: 'Add'),
-            NavigationDestination(icon: Icon(Iconsax.activity), label: 'Chat GPT'),
-            NavigationDestination(icon: Icon(Iconsax.messages_2), label: 'Groups'),
-          ],
+            () => Visibility(
+          visible: controller.selectedIndex.value != 1, // Hide navigation menu when "Video Short" is selected
+          child: NavigationBar(
+            height: 80,
+            elevation: 0,
+            selectedIndex: controller.selectedIndex.value,
+            onDestinationSelected: (index) {
+              if (index == 2) {
+                showModalBottomSheet(
+                  context: context,
+                  builder: (context) => const AddOptionsModal(),
+                );
+              } else {
+                controller.selectedIndex.value = index;
+              }
+            },
+            destinations: const [
+              NavigationDestination(icon: Icon(Iconsax.home), label: 'Home'),
+              NavigationDestination(icon: Icon(Iconsax.video), label: 'Shorts'),
+              NavigationDestination(icon: Icon(Iconsax.add_square), label: 'Add'),
+              NavigationDestination(icon: Icon(Iconsax.activity), label: 'Chat GPT'),
+              NavigationDestination(icon: Icon(Iconsax.messages_2), label: 'Groups'),
+            ],
+          ),
         ),
       ),
       body: Obx(() => controller.screens[controller.selectedIndex.value]),

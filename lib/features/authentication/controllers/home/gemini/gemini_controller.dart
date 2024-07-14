@@ -1,7 +1,5 @@
-import 'package:education_app/utils/functions/check_network.dart';
 import 'package:education_app/utils/models/geminiChatBots/model.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
 

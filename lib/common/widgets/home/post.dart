@@ -55,7 +55,7 @@ class Post extends StatelessWidget {
                   Column(
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [Text(channelName, style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: TColors.dark)),Text(dateTime,  style: TextStyle(fontSize: 12, color: TColors.kDarkGrey))],
+                    children: [Text(channelName, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: TColors.dark)),Text(dateTime,  style: const TextStyle(fontSize: 12, color: TColors.kDarkGrey))],
                   ),
                 ],
               ),
