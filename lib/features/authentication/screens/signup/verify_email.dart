@@ -1,77 +1,96 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
-import '../../../../common/widgets/success_screen/success_screen.dart';
-import '../../../../utils/constants/sizes.dart';
-import '../../../../utils/helpers/helper_functions.dart';
-import '../login/login_screen.dart';
+class VerifyEmailPage extends StatefulWidget {
+  @override
+  _VerifyEmailPageState createState() => _VerifyEmailPageState();
+}
+
+class _VerifyEmailPageState extends State<VerifyEmailPage> {
+  final _formKey = GlobalKey<FormState>();
+  final _codeController = TextEditingController();
+  bool _isLoading = false;
+  String? _message;
 
 
-class VerifyEmailScreen extends StatelessWidget {
-  const VerifyEmailScreen({Key? key}) : super(key: key);
+  Future<void> _verifyCode() async {
+    final code = _codeController.text;
+    final url = Uri.parse('http://127.0.0.1:8000/authentication/verify/'); // Updated URL
+
+    try {
+      final response = await http.post(
+        url,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: jsonEncode({
+          'verification_code': code,
+        }),
+      );
+
+      if (response.statusCode == 200) {
+        setState(() {
+          _message = 'Email verified successfully';
+        });
+      } else {
+        final Map<String, dynamic> responseData = json.decode(response.body);
+        setState(() {
+          _message = responseData['error'];
+        });
+      }
+    } catch (error) {
+      setState(() {
+        _message = 'An error occurred. Please try again.';
+      });
+    } finally {
+      setState(() {
+        _isLoading = false;
+      });
+    }
+  }
+
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading: false,
-        actions: [
-          IconButton(
-              onPressed: () => Get.offAll(() => const LoginScreen()),
-              icon: const Icon(CupertinoIcons.clear))
-        ],
+        title: Text('Verify Email'),
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(TSizes.defaultSpace),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Form(
+          key: _formKey,
           child: Column(
             children: [
-              /// image
-              Image(
-                width: THelperFunctions.screenWidth()*0.6,
-                image: const AssetImage(
-                  "assets/email_verifications/Emails-bro.png",
-                ),
+              TextFormField(
+                controller: _codeController,
+                decoration: InputDecoration(labelText: 'Verification Code'),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter the verification code';
+                  }
+                  return null;
+                },
               ),
-              const SizedBox(height: TSizes.spaceBtwSections,),
-
-              /// title and subtitle
-              Text( 'Confirm E-mail ', style: Theme.of(context).textTheme.headlineMedium, textAlign: TextAlign.center,),
-              const SizedBox(height: TSizes.spaceBtwItems,),
-              Text( 'ycn585@gmail.com', style: Theme.of(context).textTheme.labelLarge, textAlign: TextAlign.center,),
-              const SizedBox(height: TSizes.spaceBtwItems,),
-              Text( "Congratulations! your account awaits: verify your email and start your learning journey", style: Theme.of(context).textTheme.labelMedium, textAlign: TextAlign.center,),
-              const SizedBox(height: TSizes.spaceBtwSections,),
-
-              /// buttons
-              SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(
-                  onPressed: () {
-                    Get.to(() => SuccessScreen(
-                      image: "assets/email_verifications/Verified-bro.png",
-                      title: "Your account successfully created",
-                      subtitle: "Welcome to your ultimate learning destination. Your account is created.",
-                      onPressed: () => Get.to(() => const LoginScreen()),
-                    ));
-                                    },
-                  child: const Text(
-                    "continue",
+              SizedBox(height: 20),
+              if (_isLoading) CircularProgressIndicator(),
+              if (_message != null) ...[
+                SizedBox(height: 20),
+                Text(
+                  _message!,
+                  style: TextStyle(
+                    color: _message == 'Email verified successfully'
+                        ? Colors.green
+                        : Colors.red,
                   ),
                 ),
-              ),
-              const SizedBox(height: TSizes.spaceBtwItems,),
-              SizedBox(
-                width: double.infinity,
-                child: TextButton(
-                  onPressed: () {
-                    Get.to(() => const VerifyEmailScreen());
-                  },
-                  child: const Text(
-                   "Resend E-Mail",
-                  ),
-                ),
+              ],
+              SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: _isLoading ? null : _verifyCode,
+                child: Text('Verify'),
               ),
             ],
           ),

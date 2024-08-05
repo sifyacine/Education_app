@@ -1,85 +1,73 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
-import '../../../../common/widgets/success_screen/success_screen.dart';
-import '../../../../utils/constants/sizes.dart';
-import '../../../../utils/helpers/helper_functions.dart';
-import '../login/login_screen.dart';
+class ResetPasswordPage extends StatefulWidget {
+  final String email;
 
-class ResetPassword extends StatelessWidget {
-  const ResetPassword({Key? key}) : super(key: key);
+  ResetPasswordPage({required this.email});
+
+  @override
+  _ResetPasswordPageState createState() => _ResetPasswordPageState();
+}
+
+class _ResetPasswordPageState extends State<ResetPasswordPage> {
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _confirmPasswordController = TextEditingController();
+
+  Future<void> _resetPassword() async {
+    final password = _passwordController.text;
+    final confirmPassword = _confirmPasswordController.text;
+
+    if (password != confirmPassword) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Passwords do not match')),
+      );
+      return;
+    }
+
+    final response = await http.post(
+      Uri.parse('http://127.0.0.1:8000/authentication/reset_password/'),
+      body: {'email': widget.email, 'new_password': password},
+    );
+    final responseData = json.decode(response.body);
+
+    if (response.statusCode == 200) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Password reset successful')),
+      );
+      Navigator.popUntil(context, (route) => route.isFirst);
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(responseData['error'] ?? 'Failed to reset password')),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        actions: [
-          IconButton(
-              onPressed: () {
-                Get.back();
-              },
-              icon: const Icon(CupertinoIcons.clear))
-        ],
-      ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(TSizes.defaultSpace),
-          child: Column(
-            children: [
-              Image(
-                width: THelperFunctions.screenWidth() * 0.6,
-                image: const AssetImage(
-                  "assets/forget_password/Email campaign-rafiki.png",
-                ),
-              ),
-              const SizedBox(height: TSizes.spaceBtwSections),
-
-              /// title and subtitle
-              Text(
-                "password reset email sent",
-                style: Theme.of(context).textTheme.headlineMedium,
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(height: TSizes.spaceBtwItems),
-              Text(
-                "Your account is our priority! we've sent you secure link to your email",
-                style: Theme.of(context).textTheme.bodyMedium,
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(height: TSizes.spaceBtwSections),
-
-              /// buttons
-              SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(
-                  onPressed: (){
-                    Get.to(() => SuccessScreen(
-                      image: "assets/email_verifications/Verified-bro.png",
-                      title: "You have reset your password",
-                      subtitle: "You have created new password go and start your learning journey",
-                      onPressed: () => Get.to(() => const LoginScreen()),
-                    ));
-                  },
-                  child: const Text(
-                    "Done",
-                  ),
-                ),
-              ),
-              const SizedBox(height: TSizes.spaceBtwItems),
-              SizedBox(
-                width: double.infinity,
-                child: TextButton(
-                  onPressed: (){},
-                  child: const Text(
-                    "Resend E-Mail",
-                  ),
-                ),
-              ),
-              const SizedBox(height: TSizes.spaceBtwItems),
-            ],
-          ),
+      appBar: AppBar(title: Text('Reset Password')),
+      body: Padding(
+        padding: EdgeInsets.all(16.0),
+        child: Column(
+          children: [
+            TextField(
+              controller: _passwordController,
+              decoration: InputDecoration(labelText: 'New Password'),
+              obscureText: true,
+            ),
+            TextField(
+              controller: _confirmPasswordController,
+              decoration: InputDecoration(labelText: 'Confirm New Password'),
+              obscureText: true,
+            ),
+            SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: _resetPassword,
+              child: Text('Reset Password'),
+            ),
+          ],
         ),
       ),
     );

@@ -1,59 +1,55 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:iconsax/iconsax.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
-import '../../../../utils/constants/sizes.dart';
-import 'reset_password.dart';
+import 'enter_code.dart';
 
-class ForgetPassword extends StatelessWidget {
-  const ForgetPassword({super.key});
+class ForgotPasswordPage extends StatefulWidget {
+  @override
+  _ForgotPasswordPageState createState() => _ForgotPasswordPageState();
+}
+
+class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
+  final TextEditingController _emailController = TextEditingController();
+
+  Future<void> _sendResetCode() async {
+    final email = _emailController.text;
+    final response = await http.post(
+      Uri.parse('http://127.0.0.1:8000/authentication/request_password_reset/'),
+      body: {'email': email},
+    );
+    final responseData = json.decode(response.body);
+
+    if (response.statusCode == 200) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => EnterCodePage(email: email)),
+      );
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(responseData['error'] ?? 'Failed to send reset code')),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(TSizes.defaultSpace),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              /// headings
-              Text(
-                "Forget password",
-                style: Theme.of(context).textTheme.headlineMedium,
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(
-                height: TSizes.spaceBtwItems,
-              ),
-              Text(
-                "Don't worry sometimes people can forget too, enter your email and we will allow you creating new password",
-                style: Theme.of(context).textTheme.labelMedium,
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(height: TSizes.spaceBtwSections),
-
-              /// text field
-              TextFormField(
-                decoration: const InputDecoration(
-                    labelText: "E-Mail",
-                    prefixIcon: Icon(Iconsax.direct_right)),
-              ),
-              const SizedBox(height: TSizes.spaceBtwSections),
-
-              /// submit button
-              SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(
-                  onPressed: () {
-                    Get.to(() => const ResetPassword());
-                  },
-                  child: const Text("submit"),
-                ),
-              ),
-            ],
-          ),
+      appBar: AppBar(title: Text('Forgot Password')),
+      body: Padding(
+        padding: EdgeInsets.all(16.0),
+        child: Column(
+          children: [
+            TextField(
+              controller: _emailController,
+              decoration: InputDecoration(labelText: 'Email'),
+            ),
+            SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: _sendResetCode,
+              child: Text('Send Reset Code'),
+            ),
+          ],
         ),
       ),
     );
