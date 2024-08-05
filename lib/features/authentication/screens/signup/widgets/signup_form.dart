@@ -1,4 +1,3 @@
-import 'dart:convert';
 
 import 'package:education_app/features/authentication/screens/signup/widgets/terms_and_conditions.dart';
 import 'package:flutter/material.dart';
@@ -51,24 +50,40 @@ class _SignUpFormState extends State<SignUpForm> {
         'channel_phone': _phoneNumberController.text,
         'channel_password': _passwordController.text,
         'channel_desc': _channelDescriptionController.text,
-        'channel_teacher': _isTeacher, // Direct boolean value
+        'channel_teacher': _isTeacher.toString(), // Direct boolean value as string
       };
 
+      // Assuming `_profileImage` is a File object for the profile image
+      File? profileImage = _profileImage;
+
       try {
-        final response = await http.post(
-          Uri.parse('http://127.0.0.1:8000/authentication/createchannel/'), // Updated URL
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: jsonEncode(data),
-        );
+        var uri = Uri.parse('http://127.0.0.1:8000/authentication/createchannel/');
+        var request = http.MultipartRequest('POST', uri);
+
+        // Add text fields
+        data.forEach((key, value) {
+          request.fields[key] = value;
+        });
+
+        // Add profile image if provided
+        if (profileImage != null) {
+          request.files.add(
+            await http.MultipartFile.fromPath(
+              'channel_img',
+              profileImage.path,
+            ),
+          );
+        }
+
+        var response = await request.send();
 
         if (response.statusCode == 201) {
           Get.to(() => VerifyEmailPage());
         } else {
+          var responseBody = await response.stream.bytesToString();
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text('Failed to sign up: ${response.body}'),
+              content: Text('Failed to sign up: $responseBody'),
             ),
           );
         }

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import '../../../utils/constants/colors.dart';
 import '../../../utils/constants/sizes.dart';
-import '../../../utils/helpers/helper_functions.dart';
 
 class TCircularImage extends StatelessWidget {
   const TCircularImage({
@@ -27,25 +26,42 @@ class TCircularImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: height,
       width: width,
+      height: height,
       padding: EdgeInsets.all(padding),
       decoration: BoxDecoration(
         color: backgroundColor ??
-            (
-                THelperFunctions.isDarkMode(context)
-                    ? TColors.kBlack
-                    : TColors.white
-            ),
-        borderRadius: BorderRadius.circular(100),
+            (TColors.white),
+        shape: BoxShape.circle,
       ),
-      child: Image(
-        image: isNetworkImage
-            ? NetworkImage(image)
-            : AssetImage(image) as ImageProvider,
-        fit: fit,
-        color: overlayColor,
-        colorBlendMode: BlendMode.srcOver,
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(width/3),
+        // Ensures the circle shape
+        child: isNetworkImage
+            ? Image.network(
+                image,
+                fit: fit,
+                loadingBuilder: (context, child, progress) {
+                  if (progress == null) return child;
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
+                },
+                errorBuilder: (context, error, stackTrace) {
+                  return Center(
+                    child: Icon(Icons.error),
+                  );
+                },
+              )
+            : Image.asset(
+                image,
+                fit: fit,
+                errorBuilder: (context, error, stackTrace) {
+                  return Center(
+                    child: Icon(Icons.error),
+                  );
+                },
+              ),
       ),
     );
   }

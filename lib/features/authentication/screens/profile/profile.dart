@@ -1,13 +1,13 @@
-import 'package:education_app/features/authentication/screens/profile/widgets/profile_menu.dart';
 import 'package:flutter/material.dart';
-import 'package:iconsax/iconsax.dart';
 import 'package:get/get.dart';
+import 'package:iconsax/iconsax.dart';
 
 import '../../../../common/widgets/appbar/appbar.dart';
 import '../../../../common/widgets/images/circular_images.dart';
 import '../../../../common/widgets/texts/section_heading.dart';
 import '../../../../utils/constants/sizes.dart';
 import '../../controllers/profile/user_controller.dart';
+import 'widgets/profile_menu.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -27,6 +27,10 @@ class ProfileScreen extends StatelessWidget {
           child: Obx(() {
             final userData = userController.userData;
 
+            final imageUrl = userData['channel_img'] != null
+                ? "http://127.0.0.1:8000${userData['channel_img']}"
+                : "assets/user/user-image.png";
+
             return Column(
               children: [
                 SizedBox(
@@ -34,9 +38,10 @@ class ProfileScreen extends StatelessWidget {
                   child: Column(
                     children: [
                       TCircularImage(
-                        image: userData['channel_img'] ?? "assets/user/user-image.png",
+                        image: imageUrl,
                         width: 80,
                         height: 80,
+                        isNetworkImage: userData['channel_img'] != null,
                       ),
                       TextButton(
                         onPressed: () {},
@@ -53,13 +58,13 @@ class ProfileScreen extends StatelessWidget {
                 const SizedBox(height: TSizes.spaceBtwItems),
 
                 TProfileMenu(onPressed: () {}, title: 'Name', value: userData['channel_name'] ?? ''),
-                TProfileMenu(onPressed: () {}, title: 'likes', value: userData['channel_likes'] ?? ''),
+                TProfileMenu(onPressed: () {}, title: 'Likes', value: userData['channel_likes'] ?? ''),
 
                 const SizedBox(height: TSizes.spaceBtwItems / 2),
                 const Divider(),
                 const SizedBox(height: TSizes.spaceBtwItems),
 
-                const TSectionHeading(title: "Personal information"),
+                const TSectionHeading(title: "Personal Information"),
                 const SizedBox(height: TSizes.spaceBtwItems),
 
                 TProfileMenu(icon: Iconsax.copy, title: 'User-ID', value: userData['id']?.toString() ?? ''),

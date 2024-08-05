@@ -12,6 +12,7 @@ import '../../../../common/widgets/texts/section_heading.dart';
 import '../../../../utils/constants/colors.dart';
 import '../../../../utils/constants/sizes.dart';
 import '../../../../utils/helpers/helper_functions.dart';
+import '../../controllers/profile/user_controller.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -19,6 +20,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     HomeControllerImp homeControllerImp = Get.put(HomeControllerImp());
+    final UserController userController = Get.find<UserController>();
     return DefaultTabController(
       length: 2,
       child: Scaffold(
