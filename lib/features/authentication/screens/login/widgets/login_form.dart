@@ -5,8 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 import '../../../../../utils/constants/sizes.dart';
+import '../../../controllers/profile/user_controller.dart';
 import '../../home/home_screen.dart';
 
 class TLoginForm extends StatefulWidget {
@@ -24,6 +26,22 @@ class _TLoginFormState extends State<TLoginForm> {
   bool _rememberMe = false;
   bool _obscurePassword = true;
   String? _message;
+
+
+  Future<Map<String, dynamic>> fetchUserData(String email) async {
+    final url = Uri.parse('http://127.0.0.1:8000/authentication/user-profile/'); // Update with your endpoint
+    final response = await http.post(
+      url,
+      headers: {"Content-Type": "application/json"},
+      body: jsonEncode({'channel_email': email}),
+    );
+
+    if (response.statusCode == 200) {
+      return json.decode(response.body);
+    } else {
+      throw Exception('Failed to load user data');
+    }
+  }
 
 
   Future<void> _signIn() async {
@@ -55,6 +73,15 @@ class _TLoginFormState extends State<TLoginForm> {
 
       if (response.statusCode == 200) {
         print('Login successful.');
+        final userData = await fetchUserData(email);
+        final UserController userController = Get.put(UserController());
+        userController.setUserData(userData);
+
+        // Save login state and user email
+        final prefs = await SharedPreferences.getInstance();
+        await prefs.setBool('isLoggedIn', true);
+        await prefs.setString('userEmail', email);
+
         Get.offAll(() => HomeScreen()); // Navigate to HomeScreen
       } else if (response.statusCode == 404) {
         setState(() {
@@ -89,7 +116,6 @@ class _TLoginFormState extends State<TLoginForm> {
       });
     }
   }
-
 
   @override
   Widget build(BuildContext context) {
