@@ -1,14 +1,7 @@
-import 'package:education_app/common/widgets/custom_shapes/containers/search_bar_container.dart';
-import 'package:education_app/features/authentication/screens/home/group_chat/widgets/group_pfp.dart';
 import 'package:flutter/material.dart';
+import 'package:iconsax/iconsax.dart';
 
-import '../../../../../common/widgets/appbar/appbar.dart';
-import '../../../../../common/widgets/custom_shapes/containers/rounded_container.dart';
-import '../../../../../common/widgets/texts/section_heading.dart';
-import '../../../../../utils/constants/colors.dart';
-import '../../../../../utils/constants/sizes.dart';
-
-
+import 'create_group.dart';
 
 class GroupsScreen extends StatelessWidget {
   const GroupsScreen({Key? key}) : super(key: key);
@@ -16,68 +9,93 @@ class GroupsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const TAppBar(
-        title: Text(
-          "Chats",
-        ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          showModalBottomSheet(
+            context: context,
+            isScrollControlled: true,
+            builder: (BuildContext context) {
+              return Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                child: DraggableScrollableSheet(
+                  initialChildSize: 0.8,
+                  minChildSize: 0.5,
+                  maxChildSize: 0.9,
+                  expand: false,
+                  builder: (BuildContext context, ScrollController scrollController) {
+                    return SingleChildScrollView(
+                      controller: scrollController,
+                      child: const CreateGroupScreen(),
+                    );
+                  },
+                ),
+              );
+            },
+          );
+        },
+        child: const Icon(Iconsax.add),
+      ),
+      appBar: AppBar(
+        title: const Text("Chats"),
       ),
       body: SingleChildScrollView(
         child: Column(
           children: [
-            const TSearchContainer(text: 'search...'),
-            const SizedBox(height: TSizes.defaultSpace),
             const Padding(
-              padding: EdgeInsets.only(left: TSizes.defaultSpace),
+              padding: EdgeInsets.all(16.0),
+              child: TextField(
+                decoration: InputDecoration(
+                  hintText: 'search...',
+                  border: OutlineInputBorder(),
+                  prefixIcon: Icon(Icons.search),
+                ),
+              ),
+            ),
+            const Padding(
+              padding: EdgeInsets.only(left: 16.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  /// heading
-                  TSectionHeading(
-                    title: 'My groups',
-                    textColor: TColors.kBlack,
+                  Text(
+                    'My groups',
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   ),
-                  SizedBox(height: TSizes.spaceBtwItems),
-
-                  /// groups
-                  TGroups(),
+                  SizedBox(height: 16.0),
+                  // Replace with your widget to list the groups
                 ],
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(left: TSizes.defaultSpace , right: TSizes.defaultSpace),
+              padding: const EdgeInsets.all(16.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  /// heading
-                  const TSectionHeading(
-                    title: 'Other groups',
-                    textColor: TColors.kBlack,
+                  const Text(
+                    'Other groups',
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   ),
-                  const SizedBox(height: TSizes.spaceBtwItems),
-                  TRoundedContainer(
-                    padding: const EdgeInsets.only(left: TSizes.defaultSpace , right: TSizes.defaultSpace),
-
+                  const SizedBox(height: 16.0),
+                  Container(
                     width: double.infinity,
-                    showBorder: true,
-                    backgroundColor: TColors.primaryColor.withOpacity(0.5),
-                    borderColor: TColors.kGrey,
-                    margin: const EdgeInsets.only(bottom: TSizes.spaceBtwItems),
+                    padding: const EdgeInsets.all(16.0),
+                    decoration: BoxDecoration(
+                      color: Colors.grey.withOpacity(0.5),
+                      borderRadius: BorderRadius.circular(12.0),
+                    ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Row(
-                            children: [
-                              
-                            ],
-                          ),
-                          TextButton(onPressed: (){}, child: Text("Join group")),
-                        ]
+                      children: [
+                        const Text("Group Name"),
+                        TextButton(
+                          onPressed: () {},
+                          child: const Text("Join group"),
+                        ),
+                      ],
                     ),
-                  )
+                  ),
                 ],
               ),
             ),
-
           ],
         ),
       ),

@@ -5,9 +5,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'features/authentication/controllers/profile/user_controller.dart';
 import 'features/authentication/screens/login/login_screen.dart';
-import 'features/authentication/screens/home/home_screen.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+
+import 'navigation_menu.dart';
 
 Future<Map<String, dynamic>> fetchUserData(String email) async {
   final url = Uri.parse('http://127.0.0.1:8000/authentication/user-profile/'); // Update with your endpoint
@@ -65,7 +66,7 @@ class MyApp extends StatelessWidget {
                     themeMode: ThemeMode.system,
                     theme: TAppTheme.lightTheme,
                     darkTheme: TAppTheme.lightTheme,
-                    home: const HomeScreen(),
+                    home: const NavigationMenu(),
                   );
                 }
               },

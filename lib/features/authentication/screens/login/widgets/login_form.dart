@@ -7,6 +7,7 @@ import 'package:iconsax/iconsax.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
+import '../../../../../navigation_menu.dart';
 import '../../../../../utils/constants/sizes.dart';
 import '../../../controllers/profile/user_controller.dart';
 import '../../home/home_screen.dart';
@@ -82,7 +83,7 @@ class _TLoginFormState extends State<TLoginForm> {
         await prefs.setBool('isLoggedIn', true);
         await prefs.setString('userEmail', email);
 
-        Get.offAll(() => HomeScreen()); // Navigate to HomeScreen
+        Get.offAll(() => const NavigationMenu()); // Navigate to HomeScreen
       } else if (response.statusCode == 404) {
         setState(() {
           _message = 'Email does not exist';
